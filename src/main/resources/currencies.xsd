@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://khryniewicki.com.pl/classes"
+           targetNamespace="http://khryniewicki.com.pl/classes" elementFormDefault="qualified">
+
+    <xs:element name="getCurrencyRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Currency" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCurrencyResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ExchangeRatesSeries" type="tns:ExchangeRatesSeries"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ExchangeRatesSeries">
+        <xs:sequence>
+            <xs:element name="Table" type="xs:string"/>
+            <xs:element name="Currency" type="xs:string"/>
+            <xs:element name="Code" type="tns:Code"/>
+            <xs:element name="Rates" type="tns:Rate"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Code">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="USD"/>
+            <xs:enumeration value="RUB"/>
+            <xs:enumeration value="EUR"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Rate">
+        <xs:sequence>
+            <xs:element name="No" type="xs:string"/>
+            <xs:element name="EffectiveDate" type="xs:string"/>
+            <xs:element name="Bid" type="xs:float"/>
+            <xs:element name="Ask" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+</xs:schema>

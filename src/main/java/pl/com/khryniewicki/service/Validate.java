@@ -44,11 +44,11 @@ public class Validate {
         isDateValid= (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true :false;
         if(!isDateValid) return false;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "DD-MM-YYYY" );
-        LocalDate start = LocalDate.parse( startingDate , formatter );
-        LocalDate end = LocalDate.parse( startingDate , formatter );
-
-        return start.isBefore( end );
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "YYYY-MM-DD" );
+//        LocalDate start = LocalDate.parse( startingDate , formatter );
+//        LocalDate end = LocalDate.parse( startingDate , formatter );
+//        isDateValid=start.isBefore( end );
+        return isDateValid;
 
     }
 

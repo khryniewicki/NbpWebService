@@ -37,19 +37,19 @@
 
     <xs:complexType name="Rates">
         <xs:sequence>
-            <xs:element name="BestBid" type="tns:RateBid"/>
-            <xs:element name="BestAsk" type="tns:RateAsk"/>
+            <xs:element name="BestBidRate" type="tns:BestBidRate"/>
+            <xs:element name="BestAskRate" type="tns:BestAskRate"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="RateBid">
+    <xs:complexType name="BestBidRate">
         <xs:sequence>
             <xs:element name="No" type="xs:string"/>
             <xs:element name="EffectiveDate" type="xs:string"/>
             <xs:element name="Bid" type="xs:float"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="RateAsk">
+    <xs:complexType name="BestAskRate">
         <xs:sequence>
             <xs:element name="No" type="xs:string"/>
             <xs:element name="EffectiveDate" type="xs:string"/>

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(name = "Code")
 @XmlEnum
-public enum Code {
+public enum CodeRequest {
 
     USD("dolar amerykański"),
     RUB("rubel rosyjski"),
@@ -39,7 +39,7 @@ public enum Code {
 
 
 
-    Code(String currencyFullName) {
+    CodeRequest(String currencyFullName) {
         this.currencyFullName = currencyFullName;
     }
     public String getCurrencyFullName() {

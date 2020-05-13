@@ -19,13 +19,13 @@ Generated on: 2020.05.13 at 12:16:04 PM CEST
       <class ref="pl.com.khryniewicki.request.GetCurrencyResponse"/>
     </bindings>
     <bindings scd="~tns:ExchangeRatesSeries">
-      <class ref="pl.com.khryniewicki.request.ExchangeRatesSeries"/>
+      <class ref="pl.com.khryniewicki.request.ExchangeRatesRequest"/>
     </bindings>
     <bindings scd="~tns:Rate">
-      <class ref="pl.com.khryniewicki.request.Rate"/>
+      <class ref="pl.com.khryniewicki.request.RateRequest"/>
     </bindings>
     <bindings scd="~tns:Code">
-      <typesafeEnumClass ref="pl.com.khryniewicki.request.Code"/>
+      <typesafeEnumClass ref="pl.com.khryniewicki.response.Code"/>
     </bindings>
   </bindings>
 </bindings>

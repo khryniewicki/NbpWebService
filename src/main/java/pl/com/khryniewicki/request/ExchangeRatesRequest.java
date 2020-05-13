@@ -8,6 +8,8 @@
 
 package pl.com.khryniewicki.request;
 
+import pl.com.khryniewicki.response.Code;
+
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
@@ -35,14 +37,14 @@ import java.util.ArrayList;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ExchangeRatesSeries", propOrder = {
+@XmlType(name = "ExchangeRatesRequest", propOrder = {
     "table",
     "currency",
     "code",
-    "rates"
+        "rateRequests"
 })
 @XmlRootElement(name="ExchangeRatesSeries")
-public class ExchangeRatesSeries {
+public class ExchangeRatesRequest {
 
     @XmlElement(name = "Table", required = true)
     protected String table;
@@ -52,14 +54,14 @@ public class ExchangeRatesSeries {
     protected Code code;
     @XmlElementWrapper(name = "Rates")
     @XmlElement(name = "Rate")
-    protected ArrayList<pl.com.khryniewicki.request.Rate> rates;
+    protected ArrayList<RateRequest> rateRequests;
 
-    public ArrayList<pl.com.khryniewicki.request.Rate> getRates() {
-        return rates;
+    public ArrayList<RateRequest> getRateRequests() {
+        return rateRequests;
     }
 
-    public void setRates(ArrayList<pl.com.khryniewicki.request.Rate> rates) {
-        this.rates = rates;
+    public void setRateRequests(ArrayList<RateRequest> rateRequests) {
+        this.rateRequests = rateRequests;
     }
 
     /**
@@ -139,7 +141,7 @@ public class ExchangeRatesSeries {
      * 
      * @return
      *     possible object is
-     *     {@link pl.com.khryniewicki.request.Rate }
+     *     {@link RateRequest }
      *     
      */
 
@@ -159,7 +161,7 @@ public class ExchangeRatesSeries {
                 "table='" + table + '\'' +
                 ", currency='" + currency + '\'' +
                 ", code='" + code + '\'' +
-                ", rates=" + rates +
+                ", rates=" + rateRequests +
                 '}';
     }
 }

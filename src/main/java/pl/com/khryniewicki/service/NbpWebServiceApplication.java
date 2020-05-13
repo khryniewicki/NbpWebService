@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.nbp;
+package pl.com.khryniewicki.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

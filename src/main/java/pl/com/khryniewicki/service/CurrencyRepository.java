@@ -1,12 +1,9 @@
-package pl.com.khryniewicki.nbp;
+package pl.com.khryniewicki.service;
 
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import pl.com.khryniewicki.response.ExchangeRatesSeries;
-import pl.com.khryniewicki.response.RateAsk;
-import pl.com.khryniewicki.response.RateBid;
-import pl.com.khryniewicki.response.Rates;
+import pl.com.khryniewicki.response.*;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -20,20 +17,20 @@ public class CurrencyRepository {
     @PostConstruct
     public void initData() {
         pl.com.khryniewicki.response.ExchangeRatesSeries exchangeRatesSeries = new pl.com.khryniewicki.response.ExchangeRatesSeries();
-        exchangeRatesSeries.setCode(pl.com.khryniewicki.response.Code.USD);
+        exchangeRatesSeries.setCode(Code.USD);
         exchangeRatesSeries.setCurrency("dolar amerykański");
         Rates rates = new Rates();
-        RateAsk rateAsk = new RateAsk();
+        BestAskRate rateAsk = new BestAskRate();
         rateAsk.setAsk(4.23f);
         rateAsk.setEffectiveDate("sdsd332");
         rateAsk.setEffectiveDate("12-03-12");
-        rates.setBestAsk(rateAsk);
+        rates.setBestAskRate(rateAsk);
 
-        RateBid rateBid = new RateBid();
+        BestBidRate rateBid = new BestBidRate();
         rateBid.setBid(4.32f);
         rateBid.setEffectiveDate("343dfdsfds");
         rateBid.setEffectiveDate("23-12-2012");
-        rates.setBestBid(rateBid);
+        rates.setBestBidRate(rateBid);
         exchangeRatesSeries.setRates(rates);
 
         currencies.put(exchangeRatesSeries.getCurrency(), exchangeRatesSeries);

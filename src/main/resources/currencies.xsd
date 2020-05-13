@@ -6,6 +6,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Currency" type="xs:string"/>
+                <xs:element name="StartingDate" type="xs:string"/>
+                <xs:element name="EndingDate" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

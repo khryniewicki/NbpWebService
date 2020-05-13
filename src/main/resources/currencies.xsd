@@ -12,9 +12,12 @@
         </xs:complexType>
     </xs:element>
 
+
+
     <xs:element name="getCurrencyResponse">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Message" type="xs:string"/>
                 <xs:element name="ExchangeRatesSeries" type="tns:ExchangeRatesSeries"/>
             </xs:sequence>
         </xs:complexType>
@@ -39,19 +42,19 @@
 
     <xs:complexType name="Rates">
         <xs:sequence>
-            <xs:element name="BestBidRate" type="tns:BestBidRate"/>
-            <xs:element name="BestAskRate" type="tns:BestAskRate"/>
+            <xs:element name="HighestBidRate" type="tns:HighestBidRate"/>
+            <xs:element name="LowestAskRate" type="tns:LowestAskRate"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="BestBidRate">
+    <xs:complexType name="HighestBidRate">
         <xs:sequence>
             <xs:element name="No" type="xs:string"/>
             <xs:element name="EffectiveDate" type="xs:string"/>
             <xs:element name="Bid" type="xs:float"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="BestAskRate">
+    <xs:complexType name="LowestAskRate">
         <xs:sequence>
             <xs:element name="No" type="xs:string"/>
             <xs:element name="EffectiveDate" type="xs:string"/>

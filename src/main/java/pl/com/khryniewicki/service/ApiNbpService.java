@@ -40,7 +40,7 @@ public class ApiNbpService {
         return getMapWithCurrencies().get(currencyFullName);
     }
 
-    private HashMap<String, CodeRequest> getMapWithCurrencies() {
+    public HashMap<String, CodeRequest> getMapWithCurrencies() {
         HashMap<String, CodeRequest> mapWithCurrencies = new HashMap<>();
         for (CodeRequest currency : CodeRequest.values()) {
             mapWithCurrencies.put(currency.getCurrencyFullName(), currency);
@@ -81,13 +81,13 @@ public class ApiNbpService {
         RateRequest rateWithMaxBid = getRateRequestWithMaxBid(rateRequests);
         RateRequest rateWithMinAsk = getRateRequestWithMinAsk(rateRequests);
 
-        BestBidRate bestBidRate = BestBidRateAdapter(rateWithMaxBid);
-        BestAskRate bestAskRate = BestAskRateAdapter(rateWithMinAsk);
+        HighestBidRate highestBidRate = highestBidRateAdapter(rateWithMaxBid);
+        LowestAskRate lowestAskRate = lowestAskRateAdapter(rateWithMinAsk);
 
-       return ExchangeRatesSeriesAdapter(exchangeObject,bestBidRate,bestAskRate);
+        return ExchangeRatesSeriesAdapter(exchangeObject, highestBidRate, lowestAskRate);
     }
 
-    private ExchangeRatesSeries ExchangeRatesSeriesAdapter(ExchangeRatesRequest exchangeObject, BestBidRate bestBidRate, BestAskRate bestAskRate) {
+    private ExchangeRatesSeries ExchangeRatesSeriesAdapter(ExchangeRatesRequest exchangeObject, HighestBidRate highestBidRate, LowestAskRate lowestAskRate) {
         ExchangeRatesSeries exchange = new ExchangeRatesSeries();
         Rates rates = new Rates();
 
@@ -95,8 +95,8 @@ public class ApiNbpService {
         exchange.setCode(exchangeObject.getCode());
         exchange.setTable(exchangeObject.getTable());
 
-        rates.setBestBidRate(bestBidRate);
-        rates.setBestAskRate(bestAskRate);
+        rates.setHighestBidRate(highestBidRate);
+        rates.setLowestAskRate(lowestAskRate);
         exchange.setRates(rates);
 
         return exchange;
@@ -108,24 +108,26 @@ public class ApiNbpService {
                 .min(Comparator.comparing(rate -> rate.getAsk()))
                 .get();
     }
+
     private RateRequest getRateRequestWithMaxBid(ArrayList<RateRequest> rateRequests) {
         return rateRequests.stream()
                 .max(Comparator.comparing(rate -> rate.getBid()))
                 .get();
     }
 
-    private BestAskRate BestAskRateAdapter(RateRequest rateWithMinAsk) {
-        BestAskRate bestAskRate = new BestAskRate();
-        bestAskRate.setAsk(rateWithMinAsk.getAsk());
-        bestAskRate.setEffectiveDate(rateWithMinAsk.getEffectiveDate());
-        bestAskRate.setNo(rateWithMinAsk.getNo());
-        return bestAskRate;
+    private LowestAskRate lowestAskRateAdapter(RateRequest rateWithMinAsk) {
+        LowestAskRate lowestAskRate = new LowestAskRate();
+        lowestAskRate.setAsk(rateWithMinAsk.getAsk());
+        lowestAskRate.setEffectiveDate(rateWithMinAsk.getEffectiveDate());
+        lowestAskRate.setNo(rateWithMinAsk.getNo());
+        return lowestAskRate;
     }
-    private BestBidRate BestBidRateAdapter(RateRequest rateWithMaxBid) {
-        BestBidRate bestBidRate = new BestBidRate();
-        bestBidRate.setBid(rateWithMaxBid.getAsk());
-        bestBidRate.setEffectiveDate(rateWithMaxBid.getEffectiveDate());
-        bestBidRate.setNo(rateWithMaxBid.getNo());
-        return bestBidRate;
+
+    private HighestBidRate highestBidRateAdapter(RateRequest rateWithMaxBid) {
+        HighestBidRate highestBidRate = new HighestBidRate();
+        highestBidRate.setBid(rateWithMaxBid.getBid());
+        highestBidRate.setEffectiveDate(rateWithMaxBid.getEffectiveDate());
+        highestBidRate.setNo(rateWithMaxBid.getNo());
+        return highestBidRate;
     }
 }

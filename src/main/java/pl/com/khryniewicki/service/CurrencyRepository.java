@@ -20,17 +20,17 @@ public class CurrencyRepository {
         exchangeRatesSeries.setCode(Code.USD);
         exchangeRatesSeries.setCurrency("dolar amerykański");
         Rates rates = new Rates();
-        BestAskRate rateAsk = new BestAskRate();
+        LowestAskRate rateAsk = new LowestAskRate();
         rateAsk.setAsk(4.23f);
         rateAsk.setEffectiveDate("sdsd332");
         rateAsk.setEffectiveDate("12-03-12");
-        rates.setBestAskRate(rateAsk);
+        rates.setLowestAskRate(rateAsk);
 
-        BestBidRate rateBid = new BestBidRate();
+        HighestBidRate rateBid = new HighestBidRate();
         rateBid.setBid(4.32f);
         rateBid.setEffectiveDate("343dfdsfds");
         rateBid.setEffectiveDate("23-12-2012");
-        rates.setBestBidRate(rateBid);
+        rates.setHighestBidRate(rateBid);
         exchangeRatesSeries.setRates(rates);
 
         currencies.put(exchangeRatesSeries.getCurrency(), exchangeRatesSeries);

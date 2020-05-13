@@ -9,3 +9,4 @@ public class NbpWebServiceApplication {
         SpringApplication.run(NbpWebServiceApplication.class, args);
     }
 }
+

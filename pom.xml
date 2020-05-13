@@ -107,13 +107,14 @@
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
-					<generatePackage>pl.com.khryniewicki.classes</generatePackage>
+					<generatePackage>pl.com.khryniewicki.response</generatePackage>
 					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
 					<schemaIncludes>
-						<include>countries.wsdl</include>
+						<include>currencies.wsdl</include>
 					</schemaIncludes>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

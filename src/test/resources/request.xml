@@ -1,5 +1,5 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:gs="http://www.baeldung.com/springsoap/gen">
+                  xmlns:gs="http://classes.khryniewicki.com.pl">
     <soapenv:Header/>
     <soapenv:Body>
         <gs:getCountryRequest>

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://khryniewicki.com.pl/classes"
-           targetNamespace="http://khryniewicki.com.pl/classes" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://response.khryniewicki.com.pl"
+           targetNamespace="http://response.khryniewicki.com.pl" elementFormDefault="qualified">
 
     <xs:element name="getCurrencyRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Currency" type="xs:string"/>
+                <xs:element name="StartingDate" type="xs:string"/>
+                <xs:element name="EndingDate" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
+
+
     <xs:element name="getCurrencyResponse">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Message" type="xs:string"/>
                 <xs:element name="ExchangeRatesSeries" type="tns:ExchangeRatesSeries"/>
             </xs:sequence>
         </xs:complexType>
@@ -23,7 +28,7 @@
             <xs:element name="Table" type="xs:string"/>
             <xs:element name="Currency" type="xs:string"/>
             <xs:element name="Code" type="tns:Code"/>
-            <xs:element name="Rates" type="tns:Rate"/>
+            <xs:element name="Rates" type="tns:Rates"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -35,15 +40,27 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="Rate">
+    <xs:complexType name="Rates">
+        <xs:sequence>
+            <xs:element name="HighestBidRate" type="tns:HighestBidRate"/>
+            <xs:element name="LowestAskRate" type="tns:LowestAskRate"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HighestBidRate">
         <xs:sequence>
             <xs:element name="No" type="xs:string"/>
             <xs:element name="EffectiveDate" type="xs:string"/>
             <xs:element name="Bid" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LowestAskRate">
+        <xs:sequence>
+            <xs:element name="No" type="xs:string"/>
+            <xs:element name="EffectiveDate" type="xs:string"/>
             <xs:element name="Ask" type="xs:float"/>
         </xs:sequence>
     </xs:complexType>
-
 
 
 </xs:schema>

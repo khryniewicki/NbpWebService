@@ -1,4 +1,4 @@
-package pl.com.khryniewicki;
+package pl.com.khryniewicki.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,3 +9,4 @@ public class NbpWebServiceApplication {
         SpringApplication.run(NbpWebServiceApplication.class, args);
     }
 }
+

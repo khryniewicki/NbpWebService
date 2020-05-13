@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.nbp;
+package pl.com.khryniewicki.service;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -29,7 +29,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("CountriesPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.khryniewicki.com.pl/classes");
+        wsdl11Definition.setTargetNamespace("http://response.khryniewicki.com.pl");
         wsdl11Definition.setSchema(countriesSchema);
         return wsdl11Definition;
     }

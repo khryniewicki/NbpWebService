@@ -1,12 +1,13 @@
 package pl.com.khryniewicki.nbp;
 
-import com.baeldung.springsoap.gen.GetCountryRequest;
-import com.baeldung.springsoap.gen.GetCountryResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import pl.com.khryniewicki.classes.GetCurrencyRequest;
+import pl.com.khryniewicki.classes.GetCurrencyResponse;
 
 @Endpoint
 public class CountryEndpoint {
@@ -20,11 +21,11 @@ public class CountryEndpoint {
         this.countryRepository = countryRepository;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCurrencyRequest")
     @ResponsePayload
-    public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
-        GetCountryResponse response = new GetCountryResponse();
-        response.setCountry(countryRepository.findCountry(request.getName()));
+    public GetCurrencyResponse getCountry(@RequestPayload GetCurrencyRequest request) {
+        GetCurrencyResponse response = new GetCurrencyResponse();
+        response.setExchangeRatesSeries(countryRepository.findCountry(request.getCurrency()));
 
         return response;
     }

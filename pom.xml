@@ -87,7 +87,7 @@
 				</executions>
 				<configuration>
 					<sources>
-						<source>${project.basedir}/src/main/resources/countries.xsd</source>
+						<source>${project.basedir}/src/main/resources/currencies.xsd</source>
 					</sources>
 					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>
@@ -107,7 +107,7 @@
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
-					<generatePackage>com.baeldung.springsoap.client.gen</generatePackage>
+					<generatePackage>pl.com.khryniewicki.classes</generatePackage>
 					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
 					<schemaIncludes>
 						<include>countries.wsdl</include>

@@ -59,7 +59,10 @@ public class CurrencyServiceImp implements CurrencyService {
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        } catch (NullPointerException e){
+            String message="Nullpointer";
         }
+
         return fulltext;
     }
 

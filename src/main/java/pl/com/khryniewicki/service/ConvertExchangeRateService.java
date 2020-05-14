@@ -73,10 +73,10 @@ public class ConvertExchangeRateService {
     }
 
     public ExchangeRatesSeries getExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
-        return prepare(currencyFullName, startingDate, endingDate);
+        return prepareExchangeRatesSeries(currencyFullName, startingDate, endingDate);
     }
 
-    private ExchangeRatesSeries prepare(String currencyFullName, String startingDate, String endingDate) {
+    private ExchangeRatesSeries prepareExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
         String fullXML = currencyService.parseXmlFromNBPApiToString(currencyFullName, startingDate, endingDate);
         ExchangeRatesRequest exchangeRequestObject = currencyService.parseStringToExchangeRateRequest(fullXML);
         return convertExchangeRequestToExchangeResponse(exchangeRequestObject);

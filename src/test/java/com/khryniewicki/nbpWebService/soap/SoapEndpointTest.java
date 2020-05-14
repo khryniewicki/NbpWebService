@@ -3,33 +3,24 @@ package com.khryniewicki.nbpWebService.soap;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pl.com.khryniewicki.config.SOAPConnector;
 import pl.com.khryniewicki.dto.response.*;
 import pl.com.khryniewicki.service.WebServiceConfig;
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
-
 public class SoapEndpointTest {
     public static SOAPConnector soapConnector;
 
     @Before
-    public static void init(){
-        WebServiceConfig webServiceConfig=new WebServiceConfig();
-        soapConnector= webServiceConfig.soapConnector(webServiceConfig.marshaller());
+    public static void init() {
+        WebServiceConfig webServiceConfig = new WebServiceConfig();
+        soapConnector = webServiceConfig.soapConnector(webServiceConfig.marshaller());
     }
 
     @Test
@@ -48,8 +39,8 @@ public class SoapEndpointTest {
 
 
         Assertions.assertEquals("euro", testedExchangeRate.getCurrency());
-        Assertions.assertEquals(4.5718f,highestBidRate.getBid());
-        Assertions.assertEquals(4.3623f,lowestAskRate.getAsk() );
+        Assertions.assertEquals(4.5718f, highestBidRate.getBid());
+        Assertions.assertEquals(4.3623f, lowestAskRate.getAsk());
 
     }
 
@@ -69,8 +60,8 @@ public class SoapEndpointTest {
 
 
         Assertions.assertEquals("dolar amerykański", testedExchangeRate.getCurrency());
-        Assertions.assertEquals(3.9286f,highestBidRate.getBid() );
-        Assertions.assertEquals(3.8913f,lowestAskRate.getAsk() );
+        Assertions.assertEquals(3.9286f, highestBidRate.getBid());
+        Assertions.assertEquals(3.8913f, lowestAskRate.getAsk());
 
     }
 
@@ -126,7 +117,6 @@ public class SoapEndpointTest {
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
-
         Assertions.assertEquals("Invalid date", message);
         Assertions.assertEquals(null, exchange);
 
@@ -138,7 +128,7 @@ public class SoapEndpointTest {
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("europa");
         request.setStartingDate("2020-03-12");
-        request.setEndingDate("2020-02-11");
+        request.setEndingDate("2020-04-11");
 
 
         GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
@@ -150,9 +140,26 @@ public class SoapEndpointTest {
         Assertions.assertEquals(null, exchange);
 
     }
-
     @Test
     public void test7() {
+        init();
+        GetCurrencyRequest request = new GetCurrencyRequest();
+        request.setCurrency("euro");
+        request.setStartingDate("2020-03-12");
+        request.setEndingDate("2020-03-11");
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
+        String message = get.getMessage();
+        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
+
+
+        Assertions.assertEquals("Invalid date", message);
+        Assertions.assertEquals(null, exchange);
+
+    }
+    @Test
+    public void test8() {
         init();
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
@@ -170,7 +177,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test8() {
+    public void test9() {
         init();
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency(null);

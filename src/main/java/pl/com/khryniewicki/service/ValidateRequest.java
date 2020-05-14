@@ -8,6 +8,8 @@ import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,10 +55,10 @@ public class ValidateRequest {
         isDateValid = (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true : false;
         if (!isDateValid) return false;
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "YYYY-MM-DD" );
-//        LocalDate start = LocalDate.parse( startingDate , formatter );
-//        LocalDate end = LocalDate.parse( startingDate , formatter );
-//        isDateValid=start.isBefore( end );
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
+        LocalDate start = LocalDate.parse( startingDate , formatter );
+        LocalDate end = LocalDate.parse( endingDate , formatter );
+        isDateValid=start.isBefore( end );
         return isDateValid;
 
     }

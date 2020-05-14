@@ -10,6 +10,8 @@ import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
 import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
 
+import java.util.Objects;
+
 
 @Endpoint
 @RequiredArgsConstructor
@@ -25,13 +27,15 @@ public class ResponseEndpoint {
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
         GetCurrencyResponse response = new GetCurrencyResponse();
 
-//        if (validateRequest.validateRequest(request, response)) {
-//            return response;
-//        }
+        if (validateRequest.validateRequest(request, response)) {
+            return response;
+        }
 
         ExchangeRatesSeries exchangeObject = NBPService.getXMLFromApi(request);
-        System.out.println("REQUEST"+exchangeObject.toString());
-
+        if (Objects.isNull(exchangeObject)){
+            response.setMessage("Api does not provide information about this currency");
+            return response;
+        }
         response.setExchangeRatesSeries(exchangeObject);
 
         return response;

@@ -8,6 +8,7 @@ import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,10 +20,10 @@ public class ValidateRequest {
         boolean isInvalid = false;
         String message = "";
 
-        if (request.getCurrency() == null) {
+        if (Objects.isNull(request.getCurrency())) {
             message = ("No currency name found");
             isInvalid = true;
-        } else if (request.getStartingDate() == null || request.getEndingDate() == null) {
+        } else if (Objects.isNull(request.getStartingDate()) || Objects.isNull(request.getEndingDate())) {
             message = ("Date not found");
             isInvalid = true;
         } else if (!isDateValid(request)) {

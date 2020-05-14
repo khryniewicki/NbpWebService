@@ -1,8 +1,10 @@
 package pl.com.khryniewicki.service;
 
 import org.springframework.stereotype.Service;
+import pl.com.khryniewicki.dto.request.CodeRequest;
+import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.util.CurrencyUtil;
-import pl.com.khryniewicki.dto.request.*;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -22,7 +24,8 @@ public class CurrencyServiceImp implements CurrencyService {
         try {
             jaxbContext = JAXBContext.newInstance(ExchangeRatesRequest.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            unmarshal = (ExchangeRatesRequest) jaxbUnmarshaller.unmarshal(new StringReader(fulltext));
+            if (!fulltext.isEmpty()){
+            unmarshal = (ExchangeRatesRequest) jaxbUnmarshaller.unmarshal(new StringReader(fulltext));}
         } catch (JAXBException e) {
             e.printStackTrace();
         }

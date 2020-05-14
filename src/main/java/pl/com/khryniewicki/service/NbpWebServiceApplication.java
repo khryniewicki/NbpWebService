@@ -15,21 +15,22 @@ public class NbpWebServiceApplication {
 
     }
 
+//
+//    @Bean
+//    CommandLineRunner lookup(SOAPConnector soapConnector) {
+//        return args -> {
+//
+//
+//            GetCurrencyRequest request = new GetCurrencyRequest();
+//            request.setCurrency("euro");
+//            request.setStartingDate("2020-03-12");
+//            request.setEndingDate("2020-05-11");
+//
+//            GetCurrencyResponse get=(GetCurrencyResponse)soapConnector.callWebService("http://localhost:8080/ws", request);
+//        };
+//
+//    }
 
-    @Bean
-    CommandLineRunner lookup(SOAPConnector soapConnector) {
-        return args -> {
-
-
-            GetCurrencyRequest request = new GetCurrencyRequest();
-            request.setCurrency("euro");
-            request.setStartingDate("2020-03-12");
-            request.setEndingDate("2020-05-11");
-
-            GetCurrencyResponse get=(GetCurrencyResponse)soapConnector.callWebService("http://localhost:8080/ws", request);
-            System.out.println("MOJ"+get.toString());
-        };
-
-    }}
+}
 
 

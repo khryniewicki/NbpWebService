@@ -13,23 +13,36 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 @Service
 @RequiredArgsConstructor
 public class ValidateRequest {
 
     protected boolean validateRequest(@RequestPayload GetCurrencyRequest request, GetCurrencyResponse response) {
-        if (!isDateValid(request)) {
-            response.setMessage("Invalid dates");
-            return true;
+        boolean isInvalid = false;
+        String message = "";
+
+        if (request.getCurrency() == null) {
+            message = ("No currency name found");
+            isInvalid = true;
+        } else if (request.getStartingDate() == null || request.getEndingDate() == null) {
+            message = ("Date not found");
+            isInvalid = true;
+        } else if (!isDateValid(request)) {
+            message = ("Invalid date");
+            isInvalid = true;
+        } else if (!isCurrencyNameValid(request)) {
+            message = ("Invalid currency name");
+            isInvalid = true;
         }
-        else if (!isCurrencyNameValid(request)){
-            response.setMessage("Invalid currency name");
-            return true;
-        }
-        return false;
+
+        if (isInvalid) response.setMessage(message);
+
+        return isInvalid;
     }
+
     private boolean isCurrencyNameValid(GetCurrencyRequest request) {
-        String currencyFullName=request.getCurrency();
+        String currencyFullName = request.getCurrency();
         return UtilClass.MapWithCurrencies().containsKey(currencyFullName);
     }
 
@@ -39,8 +52,8 @@ public class ValidateRequest {
         String startingDate = request.getStartingDate();
         String endingDate = request.getEndingDate();
 
-        isDateValid= (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true :false;
-        if(!isDateValid) return false;
+        isDateValid = (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true : false;
+        if (!isDateValid) return false;
 
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "YYYY-MM-DD" );
 //        LocalDate start = LocalDate.parse( startingDate , formatter );

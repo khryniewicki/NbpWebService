@@ -20,7 +20,6 @@ public class ResponseEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCurrencyRequest")
     @ResponsePayload
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
-        System.out.println("Request");
         GetCurrencyResponse response = new GetCurrencyResponse();
         if (validateRequest.validateRequest(request, response)) return response;
 

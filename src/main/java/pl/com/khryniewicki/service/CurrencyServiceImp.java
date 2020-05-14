@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.CodeRequest;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
-import pl.com.khryniewicki.repository.RateRequestService;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
 import javax.xml.bind.JAXBContext;
@@ -22,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CurrencyServiceImp implements CurrencyService {
 
-    private final RateRequestService rateRequestService;
 
     @Override
     public ExchangeRatesRequest parseStringToExchangeRateRequest(String fulltext) {
@@ -40,7 +38,7 @@ public class CurrencyServiceImp implements CurrencyService {
 
 //        rateRequests.forEach(rate-> rate.setCurrency(currency1));;
 
-        rateRequests.forEach(rate-> rateRequestService.create(rate));;
+//        rateRequests.forEach(rate-> rateRequestService.create(rate));;
 
 
 

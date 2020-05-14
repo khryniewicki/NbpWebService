@@ -2,10 +2,7 @@ package pl.com.khryniewicki.dto.request;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 
 @Entity
@@ -14,8 +11,7 @@ public class RateExample {
     @Id
     @GeneratedValue()
     protected Long id;
-//    @ManyToOne
-    @Transient
+    @ManyToOne
     protected Currency currency;
     protected String no;
     protected String effectiveDate;

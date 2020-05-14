@@ -40,18 +40,14 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExchangeRatesRequest", propOrder = {
-        "id",
         "table",
         "currency",
         "code",
         "rateRequests"
 })
 @XmlRootElement(name = "ExchangeRatesSeries")
-@Entity()
-public class ExchangeRatesRequest implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+public class ExchangeRatesRequest {
+
     @XmlElement(name = "Table", required = true)
     protected String table;
     @XmlElement(name = "Currency", required = true)
@@ -60,8 +56,6 @@ public class ExchangeRatesRequest implements Serializable{
     protected Code code;
     @XmlElementWrapper(name = "Rates")
     @XmlElement(name = "Rate",required = true)
-//    @OneToMany( cascade = CascadeType.ALL,mappedBy = "exchangeRatesRequest")
-    @Transient
     protected List<RateRequest> rateRequests;
 
 

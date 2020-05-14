@@ -14,7 +14,7 @@ public class Currency {
     protected Long id;
     protected String currency;
     protected Code code;
-//    @OneToMany( cascade = CascadeType.ALL,mappedBy = "exchangeRatesRequest")
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currency")
     protected List<RateExample> rateExamples;
 }

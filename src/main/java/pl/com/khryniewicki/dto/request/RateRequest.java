@@ -9,12 +9,7 @@
 package pl.com.khryniewicki.dto.request;
 
 
-import lombok.Data;
-import pl.com.khryniewicki.repository.ExchangeRequestService;
-
-import javax.persistence.*;
 import javax.xml.bind.annotation.*;
-import java.io.Serializable;
 
 
 /**
@@ -39,24 +34,14 @@ import java.io.Serializable;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Rate", propOrder = {
-        "id",
-        "ExchangeRatesRequest",
         "no",
         "effectiveDate",
         "bid",
         "ask"
 })
 @XmlRootElement(name = "Rate")
-@Entity
-public class RateRequest implements Serializable {
-    @Id
-    @GeneratedValue()
-    @XmlElement(name = "id", required = true)
-    protected Long id;
-    @XmlElement(name = "exchangeRatesSeries", required = true)
-//    @ManyToOne
-    @Transient
-    protected ExchangeRatesRequest exchangeRatesRequest;
+public class RateRequest  {
+
     @XmlElement(name = "No", required = true)
     protected String no;
     @XmlElement(name = "EffectiveDate", required = true)
@@ -66,21 +51,7 @@ public class RateRequest implements Serializable {
     @XmlElement(name = "Ask", required = true)
     protected float ask;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ExchangeRatesRequest getCurrency() {
-        return exchangeRatesRequest;
-    }
-
-    public void setCurrency(ExchangeRatesRequest exchangeRatesSeries) {
-        this.exchangeRatesRequest = exchangeRatesSeries;
-    }
 
     /**
      * Gets the value of the no property.

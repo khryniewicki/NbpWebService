@@ -1,5 +1,6 @@
 package pl.com.khryniewicki.service;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,9 @@ import pl.com.khryniewicki.config.SOAPConnector;
 
 @EnableWs
 @Configuration
-@ComponentScan(basePackageClasses = { WebServiceConfig.class })
+@ComponentScan(basePackages = "pl.com.khryniewicki")
+@EnableAutoConfiguration
+
 public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean

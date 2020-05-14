@@ -9,21 +9,20 @@
 package pl.com.khryniewicki.dto.request;
 
 
-
-
-
-
 import pl.com.khryniewicki.dto.response.Code;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * <p>Java class for ExchangeRatesSeries complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="ExchangeRatesSeries"&gt;
  *   &lt;complexContent&gt;
@@ -38,19 +37,21 @@ import java.util.ArrayList;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExchangeRatesRequest", propOrder = {
-    "table",
-    "currency",
-    "code",
+        "id",
+        "table",
+        "currency",
+        "code",
         "rateRequests"
 })
-@XmlRootElement(name="ExchangeRatesSeries")
-public class ExchangeRatesRequest {
-
+@XmlRootElement(name = "ExchangeRatesSeries")
+@Entity()
+public class ExchangeRatesRequest implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     @XmlElement(name = "Table", required = true)
     protected String table;
     @XmlElement(name = "Currency", required = true)
@@ -58,9 +59,13 @@ public class ExchangeRatesRequest {
     @XmlElement(name = "Code", required = true)
     protected Code code;
     @XmlElementWrapper(name = "Rates")
-    @XmlElement(name = "Rate")
-    protected ArrayList<RateRequest> rateRequests;
-    public ArrayList<RateRequest> getRateRequests() {
+    @XmlElement(name = "Rate",required = true)
+//    @OneToMany( cascade = CascadeType.ALL,mappedBy = "exchangeRatesRequest")
+    @Transient
+    protected List<RateRequest> rateRequests;
+
+
+    public List<RateRequest> getRateRequests() {
         return rateRequests;
     }
 
@@ -70,11 +75,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Gets the value of the table property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTable() {
         return table;
@@ -82,11 +85,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Sets the value of the table property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTable(String value) {
         this.table = value;
@@ -94,11 +95,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Gets the value of the currency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCurrency() {
         return currency;
@@ -106,11 +105,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Sets the value of the currency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCurrency(String value) {
         this.currency = value;
@@ -118,11 +115,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Gets the value of the code property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public Code getCode() {
         return code;
@@ -130,11 +125,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Sets the value of the code property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCode(Code value) {
         this.code = value;
@@ -142,11 +135,9 @@ public class ExchangeRatesRequest {
 
     /**
      * Gets the value of the rates property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RateRequest }
-     *     
+     *
+     * @return possible object is
+     * {@link RateRequest }
      */
 
 
@@ -158,7 +149,6 @@ public class ExchangeRatesRequest {
 //     *     {@link Rate }
 //     *
 //     */
-
     @Override
     public String toString() {
         return "ExchangeRatesSeries{" +

@@ -1,8 +1,11 @@
 package pl.com.khryniewicki.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.CodeRequest;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
+import pl.com.khryniewicki.dto.request.RateRequest;
+import pl.com.khryniewicki.repository.RateRequestService;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
 import javax.xml.bind.JAXBContext;
@@ -13,9 +16,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CurrencyServiceImp implements CurrencyService {
+
+    private final RateRequestService rateRequestService;
 
     @Override
     public ExchangeRatesRequest parseStringToExchangeRateRequest(String fulltext) {
@@ -29,6 +36,14 @@ public class CurrencyServiceImp implements CurrencyService {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+        List<RateRequest> rateRequests = unmarshal.getRateRequests();
+
+//        rateRequests.forEach(rate-> rate.setCurrency(currency1));;
+
+        rateRequests.forEach(rate-> rateRequestService.create(rate));;
+
+
+
         return unmarshal;
     }
 

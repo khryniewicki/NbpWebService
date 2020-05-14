@@ -9,6 +9,7 @@ import pl.com.khryniewicki.dto.request.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class ConvertExchangeRateService {
     private final CurrencyService currencyService;
 
     private ExchangeRatesSeries convertExchangeRequestToExchangeResponse(ExchangeRatesRequest exchangeObject) {
-        ArrayList<RateRequest> rateRequests = exchangeObject.getRateRequests();
+        List<RateRequest> rateRequests = exchangeObject.getRateRequests();
 
         RateRequest rateWithMaxBid = getRateRequestWithMaxBid(rateRequests);
         RateRequest rateWithMinAsk = getRateRequestWithMinAsk(rateRequests);
@@ -44,13 +45,13 @@ public class ConvertExchangeRateService {
     }
 
 
-    private RateRequest getRateRequestWithMinAsk(ArrayList<RateRequest> rateRequests) {
+    private RateRequest getRateRequestWithMinAsk(List<RateRequest> rateRequests) {
         return rateRequests.stream()
                 .min(Comparator.comparing(rate -> rate.getAsk()))
                 .get();
     }
 
-    private RateRequest getRateRequestWithMaxBid(ArrayList<RateRequest> rateRequests) {
+    private RateRequest getRateRequestWithMaxBid(List<RateRequest> rateRequests) {
         return rateRequests.stream()
                 .max(Comparator.comparing(rate -> rate.getBid()))
                 .get();

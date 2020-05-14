@@ -8,14 +8,20 @@
 
 package pl.com.khryniewicki.dto.request;
 
+
+import lombok.Data;
+import pl.com.khryniewicki.repository.ExchangeRequestService;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 
 /**
  * <p>Java class for Rate complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="Rate"&gt;
  *   &lt;complexContent&gt;
@@ -30,34 +36,57 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Rate", propOrder = {
-    "no",
-    "effectiveDate",
-    "bid",
-    "ask"
+        "id",
+        "ExchangeRatesRequest",
+        "no",
+        "effectiveDate",
+        "bid",
+        "ask"
 })
-@XmlRootElement(name="Rate")
-public class RateRequest {
+@XmlRootElement(name = "Rate")
+@Entity
+public class RateRequest implements Serializable {
+    @Id
+    @GeneratedValue()
+    @XmlElement(name = "id", required = true)
+    protected Long id;
+    @XmlElement(name = "exchangeRatesSeries", required = true)
+//    @ManyToOne
+    @Transient
+    protected ExchangeRatesRequest exchangeRatesRequest;
     @XmlElement(name = "No", required = true)
     protected String no;
     @XmlElement(name = "EffectiveDate", required = true)
     protected String effectiveDate;
-    @XmlElement(name = "Bid")
+    @XmlElement(name = "Bid", required = true)
     protected float bid;
-    @XmlElement(name = "Ask")
+    @XmlElement(name = "Ask", required = true)
     protected float ask;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ExchangeRatesRequest getCurrency() {
+        return exchangeRatesRequest;
+    }
+
+    public void setCurrency(ExchangeRatesRequest exchangeRatesSeries) {
+        this.exchangeRatesRequest = exchangeRatesSeries;
+    }
 
     /**
      * Gets the value of the no property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getNo() {
         return no;
@@ -65,11 +94,9 @@ public class RateRequest {
 
     /**
      * Sets the value of the no property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setNo(String value) {
         this.no = value;
@@ -77,11 +104,9 @@ public class RateRequest {
 
     /**
      * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEffectiveDate() {
         return effectiveDate;
@@ -89,11 +114,9 @@ public class RateRequest {
 
     /**
      * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEffectiveDate(String value) {
         this.effectiveDate = value;
@@ -101,7 +124,6 @@ public class RateRequest {
 
     /**
      * Gets the value of the bid property.
-     * 
      */
     public float getBid() {
         return bid;
@@ -109,7 +131,6 @@ public class RateRequest {
 
     /**
      * Sets the value of the bid property.
-     * 
      */
     public void setBid(float value) {
         this.bid = value;
@@ -117,7 +138,6 @@ public class RateRequest {
 
     /**
      * Gets the value of the ask property.
-     * 
      */
     public float getAsk() {
         return ask;
@@ -125,7 +145,6 @@ public class RateRequest {
 
     /**
      * Sets the value of the ask property.
-     * 
      */
     public void setAsk(float value) {
         this.ask = value;

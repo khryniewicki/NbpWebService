@@ -6,14 +6,17 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import pl.com.khryniewicki.response.*;
+import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
+import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
+import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
+
 
 @Endpoint
 @RequiredArgsConstructor
 public class ResponseEndpoint {
 
-    private static final String NAMESPACE_URI = "http://response.khryniewicki.com.pl";
-//    private final CurrencyRepository currencyRepository;
+    private static final String NAMESPACE_URI = "http://response.dto.khryniewicki.com.pl";
+    //    private final CurrencyRepository currencyRepository;
     private final NbpService NBPService;
     private final ValidateRequest validateRequest;
 
@@ -21,9 +24,14 @@ public class ResponseEndpoint {
     @ResponsePayload
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
         GetCurrencyResponse response = new GetCurrencyResponse();
-        if (validateRequest.validateRequest(request, response)) return response;
+
+//        if (validateRequest.validateRequest(request, response)) {
+//            return response;
+//        }
 
         ExchangeRatesSeries exchangeObject = NBPService.getXMLFromApi(request);
+        System.out.println("REQUEST"+exchangeObject.toString());
+
         response.setExchangeRatesSeries(exchangeObject);
 
         return response;

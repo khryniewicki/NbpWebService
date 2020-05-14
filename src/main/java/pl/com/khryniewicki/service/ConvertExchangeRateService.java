@@ -1,20 +1,22 @@
 package pl.com.khryniewicki.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.com.khryniewicki.request.ExchangeRatesRequest;
-import pl.com.khryniewicki.request.RateRequest;
-import pl.com.khryniewicki.response.ExchangeRatesSeries;
-import pl.com.khryniewicki.response.HighestBidRate;
-import pl.com.khryniewicki.response.LowestAskRate;
-import pl.com.khryniewicki.response.Rates;
+import pl.com.khryniewicki.dto.response.*;
+import pl.com.khryniewicki.dto.request.*;
+
+
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 @Service
+@RequiredArgsConstructor
 public class ConvertExchangeRateService {
 
-    protected ExchangeRatesSeries convertExchangeRequestToExchangeResponse(ExchangeRatesRequest exchangeObject) {
+    private final CurrencyService currencyService;
+
+    private ExchangeRatesSeries convertExchangeRequestToExchangeResponse(ExchangeRatesRequest exchangeObject) {
         ArrayList<RateRequest> rateRequests = exchangeObject.getRateRequests();
 
         RateRequest rateWithMaxBid = getRateRequestWithMaxBid(rateRequests);
@@ -68,5 +70,15 @@ public class ConvertExchangeRateService {
         highestBidRate.setEffectiveDate(rateWithMaxBid.getEffectiveDate());
         highestBidRate.setNo(rateWithMaxBid.getNo());
         return highestBidRate;
+    }
+
+    public ExchangeRatesSeries getExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
+        return prepare(currencyFullName, startingDate, endingDate);
+    }
+
+    private ExchangeRatesSeries prepare(String currencyFullName, String startingDate, String endingDate) {
+        String fullXML = currencyService.parseXmlFromNBPApiToString(currencyFullName, startingDate, endingDate);
+        ExchangeRatesRequest exchangeRequestObject = currencyService.parseStringToExchangeRateRequest(fullXML);
+        return convertExchangeRequestToExchangeResponse(exchangeRequestObject);
     }
 }

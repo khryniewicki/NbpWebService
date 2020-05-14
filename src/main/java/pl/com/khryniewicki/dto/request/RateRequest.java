@@ -6,7 +6,7 @@
 //
 
 
-package pl.com.khryniewicki.request;
+package pl.com.khryniewicki.dto.request;
 
 import javax.xml.bind.annotation.*;
 
@@ -42,7 +42,6 @@ import javax.xml.bind.annotation.*;
 })
 @XmlRootElement(name="Rate")
 public class RateRequest {
-
     @XmlElement(name = "No", required = true)
     protected String no;
     @XmlElement(name = "EffectiveDate", required = true)

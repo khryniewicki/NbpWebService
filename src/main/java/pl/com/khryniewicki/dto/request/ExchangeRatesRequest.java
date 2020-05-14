@@ -6,9 +6,14 @@
 //
 
 
-package pl.com.khryniewicki.request;
+package pl.com.khryniewicki.dto.request;
 
-import pl.com.khryniewicki.response.Code;
+
+
+
+
+
+import pl.com.khryniewicki.dto.response.Code;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -55,7 +60,6 @@ public class ExchangeRatesRequest {
     @XmlElementWrapper(name = "Rates")
     @XmlElement(name = "Rate")
     protected ArrayList<RateRequest> rateRequests;
-
     public ArrayList<RateRequest> getRateRequests() {
         return rateRequests;
     }

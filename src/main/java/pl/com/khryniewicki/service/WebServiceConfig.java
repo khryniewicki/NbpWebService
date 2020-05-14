@@ -33,7 +33,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("CountriesPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://response.khryniewicki.com.pl");
+        wsdl11Definition.setTargetNamespace("http://response.dto.khryniewicki.com.pl");
         wsdl11Definition.setSchema(currenciesSchema);
         return wsdl11Definition;
     }
@@ -46,7 +46,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public Jaxb2Marshaller marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("pl.com.khryniewicki.response");
+        marshaller.setContextPath("pl.com.khryniewicki.dto.response");
         return marshaller;
     }
 
@@ -58,4 +58,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         client.setUnmarshaller(marshaller);
         return client;
     }
+
 }

@@ -3,14 +3,11 @@ package pl.com.khryniewicki.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import pl.com.khryniewicki.request.CodeRequest;
-import pl.com.khryniewicki.response.GetCurrencyRequest;
-import pl.com.khryniewicki.response.GetCurrencyResponse;
-import pl.com.khryniewicki.util.UtilClass;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
+import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
+import pl.com.khryniewicki.util.CurrencyUtil;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +40,7 @@ public class ValidateRequest {
 
     private boolean isCurrencyNameValid(GetCurrencyRequest request) {
         String currencyFullName = request.getCurrency();
-        return UtilClass.MapWithCurrencies().containsKey(currencyFullName);
+        return CurrencyUtil.getCurrenciesCode().containsKey(currencyFullName);
     }
 
     private boolean isDateValid(GetCurrencyRequest request) {

@@ -6,6 +6,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import pl.com.khryniewicki.request.CodeRequest;
 import pl.com.khryniewicki.response.GetCurrencyRequest;
 import pl.com.khryniewicki.response.GetCurrencyResponse;
+import pl.com.khryniewicki.util.UtilClass;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,11 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
-public class Validate {
-    private final ApiNbpService apiNbpService;
+public class ValidateRequest {
 
     protected boolean validateRequest(@RequestPayload GetCurrencyRequest request, GetCurrencyResponse response) {
-            String message="";
         if (!isDateValid(request)) {
             response.setMessage("Invalid dates");
             return true;
@@ -31,8 +30,7 @@ public class Validate {
     }
     private boolean isCurrencyNameValid(GetCurrencyRequest request) {
         String currencyFullName=request.getCurrency();
-        HashMap<String, CodeRequest> mapWithCurrencies = apiNbpService.getMapWithCurrencies();
-        return mapWithCurrencies.containsKey(currencyFullName);
+        return UtilClass.MapWithCurrencies().containsKey(currencyFullName);
     }
 
     private boolean isDateValid(GetCurrencyRequest request) {

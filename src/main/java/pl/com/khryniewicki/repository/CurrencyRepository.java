@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.service;
+package pl.com.khryniewicki.repository;
 
 
 import org.springframework.stereotype.Component;

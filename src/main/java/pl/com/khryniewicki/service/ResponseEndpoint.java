@@ -13,17 +13,18 @@ import pl.com.khryniewicki.response.*;
 public class ResponseEndpoint {
 
     private static final String NAMESPACE_URI = "http://response.khryniewicki.com.pl";
-    private final CurrencyRepository currencyRepository;
-    private final ApiNbpService apiNbpService;
-    private final Validate validate;
+//    private final CurrencyRepository currencyRepository;
+    private final NbpService NBPService;
+    private final ValidateRequest validateRequest;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCurrencyRequest")
     @ResponsePayload
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
+        System.out.println("Request");
         GetCurrencyResponse response = new GetCurrencyResponse();
-        if (validate.validateRequest(request, response)) return response;
+        if (validateRequest.validateRequest(request, response)) return response;
 
-        ExchangeRatesSeries exchangeObject = apiNbpService.getXMLFromApi(request);
+        ExchangeRatesSeries exchangeObject = NBPService.getXMLFromApi(request);
         response.setExchangeRatesSeries(exchangeObject);
 
         return response;

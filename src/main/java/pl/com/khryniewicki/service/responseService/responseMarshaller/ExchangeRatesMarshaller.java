@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.service;
+package pl.com.khryniewicki.service.responseService.responseMarshaller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,14 @@ import pl.com.khryniewicki.dto.response.Rates;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ExchangeRatesMarshaller {
 
-    private final CurrencyService currencyService;
 
-    private ExchangeRatesSeries convertExchangeRequestToExchangeResponse(ExchangeRatesRequest exchangeObject) {
+    public ExchangeRatesSeries exchangeRatesMarshaller(ExchangeRatesRequest exchangeObject) {
         List<RateRequest> rateRequests = exchangeObject.getRateRequests();
 
         RateRequest rateWithMaxBid = getRateRequestWithMaxBid(rateRequests);
@@ -27,7 +27,7 @@ public class ExchangeRatesMarshaller {
         HighestBidRate highestBidRate = highestBidRateAdapter(rateWithMaxBid);
         LowestAskRate lowestAskRate = lowestAskRateAdapter(rateWithMinAsk);
 
-        return ExchangeRatesSeriesAdapter(exchangeObject, highestBidRate, lowestAskRate);
+        return (ExchangeRatesSeriesAdapter(exchangeObject, highestBidRate, lowestAskRate));
     }
 
     private ExchangeRatesSeries ExchangeRatesSeriesAdapter(ExchangeRatesRequest exchangeObject, HighestBidRate highestBidRate, LowestAskRate lowestAskRate) {
@@ -73,20 +73,4 @@ public class ExchangeRatesMarshaller {
         highestBidRate.setNo(rateWithMaxBid.getNo());
         return highestBidRate;
     }
-
-    public ExchangeRatesSeries getExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
-        return prepareExchangeRatesSeries(currencyFullName, startingDate, endingDate);
-    }
-
-    private ExchangeRatesSeries prepareExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
-        String fullXML = currencyService.parseXmlFromNBPApiToString(currencyFullName, startingDate, endingDate);
-        if (fullXML.isEmpty())return null;
-        ExchangeRatesRequest exchangeRatesRequest = currencyService.parseStringToExchangeRateRequest(fullXML);
-        return convertExchangeRequestToExchangeResponse(exchangeRatesRequest);
-    }
-
-    public ExchangeRatesSeries prepareExchangeRatesFromDB(ExchangeRatesRequest exchangeRatesRequest) {
-        return convertExchangeRequestToExchangeResponse(exchangeRatesRequest);
-    }
-
 }

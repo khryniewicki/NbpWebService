@@ -1,8 +1,9 @@
-package pl.com.khryniewicki.repository;
+package pl.com.khryniewicki.service.requestService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
+import pl.com.khryniewicki.dto.repository.ExchangeRatesRequestRepository;
 
 @Service
 @RequiredArgsConstructor

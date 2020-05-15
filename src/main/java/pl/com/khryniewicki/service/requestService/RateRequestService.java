@@ -1,42 +1,38 @@
-package pl.com.khryniewicki.repository;
+package pl.com.khryniewicki.service.requestService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
+import pl.com.khryniewicki.dto.repository.RateRequestRepository;
 
-import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RateEntityService {
+public class RateRequestService {
 
     private final RateRequestRepository rateRequestRepository;
     private final ExchangeRatesService exchangeRatesService;
 
+    public void create(RateRequest rateRequest) {
+        rateRequestRepository.save(rateRequest);
+    }
+
     public boolean isRateRequestsStored(RequestHolder requestHolder) {
-        boolean isRateRequestsStored = false;
         GregorianCalendar startingDate = requestHolder.getStartingDate();
         GregorianCalendar endingDate = requestHolder.getEndingDate();
 
         ExchangeRatesRequest exchange = exchangeRatesService.findByCurrency(requestHolder.getCurrency());
-
         Optional<RateRequest> RateRequestInStartingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, startingDate);
         Optional<RateRequest> RateRequestInEndingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, endingDate);
 
-        if (RateRequestInStartingDay.isPresent() && RateRequestInEndingDay.isPresent()) {
-            isRateRequestsStored = true;
-        }
-        return isRateRequestsStored;
+        return  (RateRequestInStartingDay.isPresent() && RateRequestInEndingDay.isPresent()) ? true:false;
     }
 
-    public void create(RateRequest rateRequest) {
-        rateRequestRepository.save(rateRequest);
-    }
 
     public List<RateRequest> findByExchangeRatesAndDates(RequestHolder requestHolder) {
         ExchangeRatesRequest exchangeRatesRequest = exchangeRatesService.findByCurrency(requestHolder.getCurrency());

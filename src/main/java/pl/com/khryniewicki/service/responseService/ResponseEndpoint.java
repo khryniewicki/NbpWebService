@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.service;
+package pl.com.khryniewicki.service.responseService;
 
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,6 @@ import pl.com.khryniewicki.service.validation.ValidateResponse;
 public class ResponseEndpoint {
 
     private static final String NAMESPACE_URI = "http://response.dto.khryniewicki.com.pl";
-    //    private final CurrencyRepository currencyRepository;
     private final ResponseService ResponseService;
     private final ValidateRequest validateRequest;
     private final ValidateResponse validateResponse;
@@ -27,15 +26,12 @@ public class ResponseEndpoint {
     @ResponsePayload
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
         GetCurrencyResponse response = new GetCurrencyResponse();
-        System.out.println("Response1");
+
         if (validateRequest.validateRequest(request, response)) {
             return response;
         }
-        System.out.println("Response2");
 
         ExchangeRatesSeries exchangeRates = ResponseService.getExchangeRates(request);
-
-        System.out.println("Response3");
 
         if (validateResponse.validateResponse(response, exchangeRates)) {
             return response;

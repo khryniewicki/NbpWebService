@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.repository;
+package pl.com.khryniewicki.dto.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -63,7 +63,7 @@ public class ExchangeRatesRequest {
         return rateRequests;
     }
 
-    public void setRateRequests(ArrayList<RateRequest> rateRequests) {
+    public void setRateRequests(List<RateRequest> rateRequests) {
         this.rateRequests = rateRequests;
     }
 

@@ -14,7 +14,9 @@ public class ExchangeRatesEntity {
     protected Long id;
     protected String currency;
     protected Code code;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "currency")
+//    protected String Table;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exchange")
     protected List<RateEntity> rateEntities;
+
+
 }

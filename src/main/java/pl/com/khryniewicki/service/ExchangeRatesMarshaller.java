@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ConvertExchangeRateService {
+public class ExchangeRatesMarshaller {
 
     private final CurrencyService currencyService;
 
@@ -81,7 +81,12 @@ public class ConvertExchangeRateService {
     private ExchangeRatesSeries prepareExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
         String fullXML = currencyService.parseXmlFromNBPApiToString(currencyFullName, startingDate, endingDate);
         if (fullXML.isEmpty())return null;
-        ExchangeRatesRequest exchangeRequestObject = currencyService.parseStringToExchangeRateRequest(fullXML);
-        return convertExchangeRequestToExchangeResponse(exchangeRequestObject);
+        ExchangeRatesRequest exchangeRatesRequest = currencyService.parseStringToExchangeRateRequest(fullXML);
+        return convertExchangeRequestToExchangeResponse(exchangeRatesRequest);
     }
+
+    public ExchangeRatesSeries prepareExchangeRatesFromDB(ExchangeRatesRequest exchangeRatesRequest) {
+        return convertExchangeRequestToExchangeResponse(exchangeRatesRequest);
+    }
+
 }

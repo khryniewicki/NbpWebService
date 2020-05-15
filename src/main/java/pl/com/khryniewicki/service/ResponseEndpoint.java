@@ -19,7 +19,7 @@ public class ResponseEndpoint {
 
     private static final String NAMESPACE_URI = "http://response.dto.khryniewicki.com.pl";
     //    private final CurrencyRepository currencyRepository;
-    private final NbpService NBPService;
+    private final ResponseService ResponseService;
     private final ValidateRequest validateRequest;
     private final ValidateResponse validateResponse;
 
@@ -33,7 +33,7 @@ public class ResponseEndpoint {
         }
 
 
-        ExchangeRatesSeries exchangeRates = NBPService.getExchangeRatesFromApi(request);
+        ExchangeRatesSeries exchangeRates = ResponseService.getExchangeRatesFromApi(request);
 
         if (validateResponse.validateResponse(response, exchangeRates)) {
             return response;

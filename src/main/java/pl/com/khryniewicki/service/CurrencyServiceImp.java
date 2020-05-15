@@ -3,6 +3,7 @@ package pl.com.khryniewicki.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.CodeRequest;
+import pl.com.khryniewicki.dto.request.ExchangeRatesEntity;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.util.CurrencyUtil;
@@ -22,32 +23,36 @@ import java.util.List;
 public class CurrencyServiceImp implements CurrencyService {
 
 
+
     @Override
     public ExchangeRatesRequest parseStringToExchangeRateRequest(String fulltext) {
         JAXBContext jaxbContext;
         ExchangeRatesRequest unmarshal = new ExchangeRatesRequest();
+        ExchangeRatesEntity unmarshalEntity = new ExchangeRatesEntity();
         try {
             jaxbContext = JAXBContext.newInstance(ExchangeRatesRequest.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            if (!fulltext.isEmpty()){
-            unmarshal = (ExchangeRatesRequest) jaxbUnmarshaller.unmarshal(new StringReader(fulltext));}
+
+//            jaxbContext = JAXBContext.newInstance(ExchangeRatesEntity.class);
+//            Unmarshaller jaxbUnmarshallerEntity = jaxbContext.createUnmarshaller();
+            if (!fulltext.isEmpty()) {
+                unmarshal = (ExchangeRatesRequest) jaxbUnmarshaller.unmarshal(new StringReader(fulltext));
+//                unmarshalEntity = (ExchangeRatesEntity) jaxbUnmarshallerEntity.unmarshal(new StringReader(fulltext));
+            }
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         List<RateRequest> rateRequests = unmarshal.getRateRequests();
 
-//        rateRequests.forEach(rate-> rate.setCurrency(currency1));;
-
-//        rateRequests.forEach(rate-> rateRequestService.create(rate));;
-
-
+        System.out.println(unmarshalEntity.toString());
 
         return unmarshal;
     }
 
 
     @Override
-    public String parseXmlFromNBPApiToString(String  currencyFullName, String startingDate, String endingDate) {
+    public String parseXmlFromNBPApiToString(String currencyFullName, String startingDate, String endingDate) {
         CodeRequest code = getCurrencyCodeUsingCurrencyName(currencyFullName);
 
         String path = "https://api.nbp.pl/api/exchangerates/rates/c/" + code.name().toLowerCase() + "/" + startingDate + "/" + endingDate + "/?format=xml";
@@ -59,8 +64,8 @@ public class CurrencyServiceImp implements CurrencyService {
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        } catch (NullPointerException e){
-            String message="Nullpointer";
+        } catch (NullPointerException e) {
+            String message = "Nullpointer";
         }
 
         return fulltext;

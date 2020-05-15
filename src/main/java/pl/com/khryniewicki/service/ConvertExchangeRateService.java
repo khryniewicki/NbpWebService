@@ -2,12 +2,13 @@ package pl.com.khryniewicki.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.com.khryniewicki.dto.response.*;
-import pl.com.khryniewicki.dto.request.*;
+import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
+import pl.com.khryniewicki.dto.request.RateRequest;
+import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
+import pl.com.khryniewicki.dto.response.HighestBidRate;
+import pl.com.khryniewicki.dto.response.LowestAskRate;
+import pl.com.khryniewicki.dto.response.Rates;
 
-
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 

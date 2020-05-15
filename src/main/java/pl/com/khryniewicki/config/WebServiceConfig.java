@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.service;
+package pl.com.khryniewicki.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -34,7 +34,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean(name = "currencies")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema currenciesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("CountriesPort");
+        wsdl11Definition.setPortTypeName("CurrenciesPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://response.dto.khryniewicki.com.pl");
         wsdl11Definition.setSchema(currenciesSchema);

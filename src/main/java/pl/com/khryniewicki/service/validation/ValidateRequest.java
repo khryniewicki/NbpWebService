@@ -55,12 +55,18 @@ public class ValidateRequest {
         isDateValid = (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true : false;
         if (!isDateValid) return false;
 
+        isDateValid = isStartingDateBeforeEndingDate(startingDate, endingDate);
+        return isDateValid;
+
+    }
+
+    private boolean isStartingDateBeforeEndingDate(String startingDate, String endingDate) {
+        boolean isDateValid;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
         LocalDate start = LocalDate.parse( startingDate , formatter );
         LocalDate end = LocalDate.parse( endingDate , formatter );
         isDateValid=start.isBefore( end );
         return isDateValid;
-
     }
 
     private boolean isRequestDateValid(String date) {

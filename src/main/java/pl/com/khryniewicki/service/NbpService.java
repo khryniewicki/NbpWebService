@@ -12,8 +12,11 @@ import pl.com.khryniewicki.dto.response.*;
 public class NbpService {
 
     private final ConvertExchangeRateService convertExchangeRateService;
+//    private boolean isResponseStoredInDatabase(request){
+//
+//    }
 
-    public ExchangeRatesSeries getXMLFromApi(GetCurrencyRequest request) {
+    public ExchangeRatesSeries getExchangeRatesFromApi(GetCurrencyRequest request) {
         String currencyFullName = request.getCurrency();
         String startingDate = request.getStartingDate();
         String endingDate = request.getEndingDate();

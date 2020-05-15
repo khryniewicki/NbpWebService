@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.com.khryniewicki.config.SOAPConnector;
 import pl.com.khryniewicki.dto.response.*;
-import pl.com.khryniewicki.service.WebServiceConfig;
+import pl.com.khryniewicki.config.WebServiceConfig;
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
@@ -21,8 +21,6 @@ public class SoapEndpointTest {
     public void init() {
         WebServiceConfig webServiceConfig = new WebServiceConfig();
         soapConnector = webServiceConfig.soapConnector(webServiceConfig.marshaller());
-
-
     }
 
     @Test

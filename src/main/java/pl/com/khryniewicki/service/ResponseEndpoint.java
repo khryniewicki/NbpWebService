@@ -12,8 +12,6 @@ import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
 import pl.com.khryniewicki.service.validation.ValidateRequest;
 import pl.com.khryniewicki.service.validation.ValidateResponse;
 
-import java.util.Objects;
-
 
 @Endpoint
 @RequiredArgsConstructor
@@ -34,13 +32,14 @@ public class ResponseEndpoint {
             return response;
         }
 
-        ExchangeRatesSeries exchangeObject = NBPService.getXMLFromApi(request);
 
-        if (validateResponse.validateResponse(response, exchangeObject)) {
+        ExchangeRatesSeries exchangeRates = NBPService.getExchangeRatesFromApi(request);
+
+        if (validateResponse.validateResponse(response, exchangeRates)) {
             return response;
         }
 
-        response.setExchangeRatesSeries(exchangeObject);
+        response.setExchangeRatesSeries(exchangeRates);
 
         return response;
     }

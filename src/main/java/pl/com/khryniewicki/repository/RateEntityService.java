@@ -2,11 +2,12 @@ package pl.com.khryniewicki.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.com.khryniewicki.dto.request.ExchangeRatesEntity;
-import pl.com.khryniewicki.dto.request.RateEntity;
+import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
+import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
 
 import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,35 +15,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RateEntityService {
 
-    private final RateEntityRepository rateEntityRepository;
-
-
-    public void create(RateEntity rateEntity) {
-        rateEntityRepository.save(rateEntity);
-    }
-
-    public List<RateEntity> findByExchangeRatesAndDates(RequestHolder requestHolder) {
-        ExchangeRatesEntity exchangeRatesEntity = requestHolder.getExchangeRatesEntity();
-        LocalDate startingDate = requestHolder.getStartingDate();
-        LocalDate endingDate = requestHolder.getEndingDate();
-
-        return rateEntityRepository.findAllByExchangeAndEffectiveDateBetween(exchangeRatesEntity, startingDate, endingDate);
-    }
-
+    private final RateRequestRepository rateRequestRepository;
+    private final ExchangeRatesService exchangeRatesService;
 
     public boolean isRateRequestsStored(RequestHolder requestHolder) {
         boolean isRateRequestsStored = false;
+        GregorianCalendar startingDate = requestHolder.getStartingDate();
+        GregorianCalendar endingDate = requestHolder.getEndingDate();
 
-        ExchangeRatesEntity exchangeRatesEntity = requestHolder.getExchangeRatesEntity();
-        LocalDate startingDate = requestHolder.getStartingDate();
-        LocalDate endingDate = requestHolder.getEndingDate();
+        ExchangeRatesRequest exchange = exchangeRatesService.findByCurrency(requestHolder.getCurrency());
 
-        Optional<RateEntity> RateRequestInStartingDay = rateEntityRepository.findByExchangeAndEffectiveDate(exchangeRatesEntity, startingDate);
-        Optional<RateEntity> RateRequestInEndingDay = rateEntityRepository.findByExchangeAndEffectiveDate(exchangeRatesEntity, endingDate);
+        Optional<RateRequest> RateRequestInStartingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, startingDate);
+        Optional<RateRequest> RateRequestInEndingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, endingDate);
 
         if (RateRequestInStartingDay.isPresent() && RateRequestInEndingDay.isPresent()) {
             isRateRequestsStored = true;
         }
         return isRateRequestsStored;
     }
+
+    public void create(RateRequest rateRequest) {
+        rateRequestRepository.save(rateRequest);
+    }
+
+    public List<RateRequest> findByExchangeRatesAndDates(RequestHolder requestHolder) {
+        ExchangeRatesRequest exchangeRatesRequest = exchangeRatesService.findByCurrency(requestHolder.getCurrency());
+        GregorianCalendar startingDate = requestHolder.getStartingDate();
+        GregorianCalendar endingDate = requestHolder.getEndingDate();
+
+        return rateRequestRepository.findAllByExchangeAndEffectiveDateBetween(exchangeRatesRequest, startingDate, endingDate);
+    }
+
+
+
 }

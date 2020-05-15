@@ -61,7 +61,7 @@ public class ExchangeRatesMarshaller {
     private LowestAskRate lowestAskRateAdapter(RateRequest rateWithMinAsk) {
         LowestAskRate lowestAskRate = new LowestAskRate();
         lowestAskRate.setAsk(rateWithMinAsk.getAsk());
-        lowestAskRate.setEffectiveDate(rateWithMinAsk.getEffectiveDate());
+        lowestAskRate.setEffectiveDate(rateWithMinAsk.getEffectiveDate().toZonedDateTime().toLocalDate().toString());
         lowestAskRate.setNo(rateWithMinAsk.getNo());
         return lowestAskRate;
     }
@@ -69,7 +69,7 @@ public class ExchangeRatesMarshaller {
     private HighestBidRate highestBidRateAdapter(RateRequest rateWithMaxBid) {
         HighestBidRate highestBidRate = new HighestBidRate();
         highestBidRate.setBid(rateWithMaxBid.getBid());
-        highestBidRate.setEffectiveDate(rateWithMaxBid.getEffectiveDate());
+        highestBidRate.setEffectiveDate(rateWithMaxBid.getEffectiveDate().toZonedDateTime().toLocalDate().toString());
         highestBidRate.setNo(rateWithMaxBid.getNo());
         return highestBidRate;
     }

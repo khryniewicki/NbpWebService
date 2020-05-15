@@ -9,7 +9,10 @@
 package pl.com.khryniewicki.dto.request;
 
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
+
+import java.util.GregorianCalendar;
 
 
 /**
@@ -34,24 +37,39 @@ import javax.xml.bind.annotation.*;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Rate", propOrder = {
+        "id",
         "no",
         "effectiveDate",
         "bid",
-        "ask"
+        "ask",
+        "exchange"
 })
 @XmlRootElement(name = "Rate")
+@Entity
 public class RateRequest  {
-
+    @Id
+    @GeneratedValue()
+    @XmlElement(name = "id", required = true)
+    protected Long id;
     @XmlElement(name = "No", required = true)
     protected String no;
     @XmlElement(name = "EffectiveDate", required = true)
-    protected String effectiveDate;
+    protected GregorianCalendar effectiveDate;
     @XmlElement(name = "Bid", required = true)
     protected float bid;
     @XmlElement(name = "Ask", required = true)
     protected float ask;
+    @XmlElement(name = "Exchange", required = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    protected ExchangeRatesRequest exchange;
 
+    public ExchangeRatesRequest getExchange() {
+        return exchange;
+    }
 
+    public void setExchange(ExchangeRatesRequest exchange) {
+        this.exchange = exchange;
+    }
 
     /**
      * Gets the value of the no property.
@@ -79,7 +97,7 @@ public class RateRequest  {
      * @return possible object is
      * {@link String }
      */
-    public String getEffectiveDate() {
+    public GregorianCalendar getEffectiveDate() {
         return effectiveDate;
     }
 
@@ -89,7 +107,7 @@ public class RateRequest  {
      * @param value allowed object is
      *              {@link String }
      */
-    public void setEffectiveDate(String value) {
+    public void setEffectiveDate(GregorianCalendar value) {
         this.effectiveDate = value;
     }
 

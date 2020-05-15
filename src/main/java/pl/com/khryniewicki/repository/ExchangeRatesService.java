@@ -2,15 +2,22 @@ package pl.com.khryniewicki.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.com.khryniewicki.dto.request.ExchangeRatesEntity;
+import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 
 @Service
 @RequiredArgsConstructor
 public class ExchangeRatesService {
-    private final ExchangeRatesEntityRepository exchangeRatesEntityRepository;
+    private final ExchangeRatesRequestRepository exchangeRatesRequestRepository;
 
 
-    private void create(ExchangeRatesEntity exchangeRatesEntity) {
-        exchangeRatesEntityRepository.save(exchangeRatesEntity);
+    public void create(ExchangeRatesRequest exchangeRatesRequest) {
+        exchangeRatesRequestRepository.save(exchangeRatesRequest);
     }
+
+    public ExchangeRatesRequest findByCurrency(String currency) {
+        return exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(currency);
+    }
+
+
+
 }

@@ -19,7 +19,7 @@ public class ResponseService {
 
     public ExchangeRatesSeries getExchangeRates(GetCurrencyRequest request) {
         RequestHolder requestHolder = RequestUtil.parseRequest(request);
-        return isResponseAlreadyStored(requestHolder) ? getExchangeRatesFromDB(requestHolder) : getExchangeRatesFromApi(request);
+        return isResponseAlreadyStored(requestHolder)? getExchangeRatesFromDB(requestHolder):getExchangeRatesFromApi(request);
     }
 
     private boolean isResponseAlreadyStored(RequestHolder requestHolder) {
@@ -39,8 +39,6 @@ public class ResponseService {
 
         return exchangeRatesMarshaller.getExchangeRatesSeries(currencyFullName, startingDate, endingDate);
     }
-
-
 
 
 }

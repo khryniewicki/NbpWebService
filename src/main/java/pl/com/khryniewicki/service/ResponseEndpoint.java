@@ -27,13 +27,15 @@ public class ResponseEndpoint {
     @ResponsePayload
     public GetCurrencyResponse getExchangeRate(@RequestPayload GetCurrencyRequest request) {
         GetCurrencyResponse response = new GetCurrencyResponse();
-
+        System.out.println("Response1");
         if (validateRequest.validateRequest(request, response)) {
             return response;
         }
+        System.out.println("Response2");
 
+        ExchangeRatesSeries exchangeRates = ResponseService.getExchangeRates(request);
 
-        ExchangeRatesSeries exchangeRates = ResponseService.getExchangeRatesFromApi(request);
+        System.out.println("Response3");
 
         if (validateResponse.validateResponse(response, exchangeRates)) {
             return response;

@@ -9,6 +9,7 @@
 package pl.com.khryniewicki.dto.request;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.com.khryniewicki.dto.response.Code;
 
 import javax.persistence.*;
@@ -40,22 +41,28 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExchangeRatesRequest", propOrder = {
-        "table",
+        "id",
+        "tableName",
         "currency",
         "code",
         "rateRequests"
 })
 @XmlRootElement(name = "ExchangeRatesSeries")
+@Entity
 public class ExchangeRatesRequest {
-
-    @XmlElement(name = "Table", required = true)
-    protected String table;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @XmlElement(name = "id", required = true)
+    protected Long id;
+    @XmlElement(name = "TableName", required = true)
+    protected String tableName;
     @XmlElement(name = "Currency", required = true)
     protected String currency;
     @XmlElement(name = "Code", required = true)
     protected Code code;
     @XmlElementWrapper(name = "Rates")
     @XmlElement(name = "Rate",required = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exchange")
     protected List<RateRequest> rateRequests;
 
 
@@ -74,7 +81,7 @@ public class ExchangeRatesRequest {
      * {@link String }
      */
     public String getTable() {
-        return table;
+        return tableName;
     }
 
     /**
@@ -84,7 +91,7 @@ public class ExchangeRatesRequest {
      *              {@link String }
      */
     public void setTable(String value) {
-        this.table = value;
+        this.tableName = value;
     }
 
     /**
@@ -146,10 +153,9 @@ public class ExchangeRatesRequest {
     @Override
     public String toString() {
         return "ExchangeRatesSeries{" +
-                "table='" + table + '\'' +
+                "table='" + tableName+ '\'' +
                 ", currency='" + currency + '\'' +
                 ", code='" + code + '\'' +
-                ", rates=" + rateRequests +
                 '}';
     }
 }

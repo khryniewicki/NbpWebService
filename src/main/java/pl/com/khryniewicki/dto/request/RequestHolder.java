@@ -2,15 +2,16 @@ package pl.com.khryniewicki.dto.request;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.GregorianCalendar;
+
 @Data
 public class RequestHolder {
-    private ExchangeRatesEntity exchangeRatesEntity;
-    private LocalDate startingDate;
-    private LocalDate endingDate;
+    private String currency;
+    private GregorianCalendar startingDate;
+    private GregorianCalendar endingDate;
 
-    public RequestHolder(ExchangeRatesEntity exchangeRatesEntity, LocalDate startingDate, LocalDate endingDate) {
-        this.exchangeRatesEntity = exchangeRatesEntity;
+    public RequestHolder(String currency, GregorianCalendar startingDate, GregorianCalendar endingDate) {
+        this.currency = currency;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
     }

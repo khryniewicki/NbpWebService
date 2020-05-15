@@ -3,9 +3,11 @@ package pl.com.khryniewicki.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.CodeRequest;
-import pl.com.khryniewicki.dto.request.ExchangeRatesEntity;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
+import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
+import pl.com.khryniewicki.repository.ExchangeRatesService;
+import pl.com.khryniewicki.repository.RateEntityService;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
 import javax.xml.bind.JAXBContext;
@@ -22,31 +24,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CurrencyServiceImp implements CurrencyService {
 
-
-
+private final ExchangeRatesService exchangeRatesService;
+private final RateEntityService rateEntityService;
     @Override
     public ExchangeRatesRequest parseStringToExchangeRateRequest(String fulltext) {
         JAXBContext jaxbContext;
         ExchangeRatesRequest unmarshal = new ExchangeRatesRequest();
-        ExchangeRatesEntity unmarshalEntity = new ExchangeRatesEntity();
         try {
             jaxbContext = JAXBContext.newInstance(ExchangeRatesRequest.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-//            jaxbContext = JAXBContext.newInstance(ExchangeRatesEntity.class);
-//            Unmarshaller jaxbUnmarshallerEntity = jaxbContext.createUnmarshaller();
             if (!fulltext.isEmpty()) {
                 unmarshal = (ExchangeRatesRequest) jaxbUnmarshaller.unmarshal(new StringReader(fulltext));
-//                unmarshalEntity = (ExchangeRatesEntity) jaxbUnmarshallerEntity.unmarshal(new StringReader(fulltext));
             }
-
         } catch (JAXBException e) {
             e.printStackTrace();
         }
         List<RateRequest> rateRequests = unmarshal.getRateRequests();
-
-        System.out.println(unmarshalEntity.toString());
-
+        exchangeRatesService.create(unmarshal);
+//        ExchangeRatesRequest exchangeRatesRequest = new ExchangeRatesRequest();
+//        exchangeRatesRequest.setCurrency(unmarshal.getCurrency());
+        ExchangeRatesRequest byCurrency = exchangeRatesService.findByCurrency(unmarshal.getCurrency());
+        rateRequests.forEach(rate->rate.setExchange(byCurrency));
+        rateRequests.forEach(rate->rateEntityService.create(rate));
         return unmarshal;
     }
 

@@ -3,16 +3,15 @@ package pl.com.khryniewicki.dto.request;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
 
 @Entity
 @Data
-public class RateExample {
+public class RateEntity {
     @Id
     @GeneratedValue()
     protected Long id;
     @ManyToOne
-    protected Currency currency;
+    protected ExchangeRatesEntity currency;
     protected String no;
     protected String effectiveDate;
     protected float bid;

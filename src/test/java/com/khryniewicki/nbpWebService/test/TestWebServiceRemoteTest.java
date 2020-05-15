@@ -6,10 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.com.khryniewicki.service.ITestWebService;
-import pl.com.khryniewicki.service.TestWebService;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Endpoint;

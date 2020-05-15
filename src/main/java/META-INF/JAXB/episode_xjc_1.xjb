@@ -22,7 +22,7 @@ Generated on: 2020.05.13 at 11:00:13 AM CEST
       <class ref="pl.com.khryniewicki.dto.request.Country"/>
     </bindings>
     <bindings scd="~tns:currency">
-      <typesafeEnumClass ref="pl.com.khryniewicki.dto.request.Currency"/>
+      <typesafeEnumClass ref="pl.com.khryniewicki.dto.request.ExchangeRatesEntity"/>
     </bindings>
   </bindings>
 </bindings>

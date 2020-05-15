@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Currency {
+public class ExchangeRatesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -16,5 +16,5 @@ public class Currency {
     protected Code code;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currency")
-    protected List<RateExample> rateExamples;
+    protected List<RateEntity> rateEntities;
 }

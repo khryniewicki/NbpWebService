@@ -9,6 +9,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
 import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
+import pl.com.khryniewicki.service.validation.ValidateRequest;
+import pl.com.khryniewicki.service.validation.ValidateResponse;
 
 import java.util.Objects;
 
@@ -21,6 +23,7 @@ public class ResponseEndpoint {
     //    private final CurrencyRepository currencyRepository;
     private final NbpService NBPService;
     private final ValidateRequest validateRequest;
+    private final ValidateResponse validateResponse;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCurrencyRequest")
     @ResponsePayload
@@ -32,14 +35,17 @@ public class ResponseEndpoint {
         }
 
         ExchangeRatesSeries exchangeObject = NBPService.getXMLFromApi(request);
-        if (Objects.isNull(exchangeObject)){
-            response.setMessage("Api does not provide information about this currency");
+
+        if (validateResponse.validateResponse(response, exchangeObject)) {
             return response;
         }
+
         response.setExchangeRatesSeries(exchangeObject);
 
         return response;
     }
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package pl.com.khryniewicki.service;
+package pl.com.khryniewicki.service.validation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class ValidateRequest {
 
-    protected boolean validateRequest(@RequestPayload GetCurrencyRequest request, GetCurrencyResponse response) {
+    public boolean validateRequest(@RequestPayload GetCurrencyRequest request, GetCurrencyResponse response) {
         boolean isInvalid = false;
         String message = "";
 

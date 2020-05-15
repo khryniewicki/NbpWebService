@@ -2,7 +2,6 @@ package com.khryniewicki.nbpWebService.soap;
 
 
 import lombok.RequiredArgsConstructor;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +21,8 @@ public class SoapEndpointTest {
     public void init() {
         WebServiceConfig webServiceConfig = new WebServiceConfig();
         soapConnector = webServiceConfig.soapConnector(webServiceConfig.marshaller());
+
+
     }
 
     @Test

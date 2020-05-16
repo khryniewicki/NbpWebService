@@ -10,19 +10,19 @@ Generated on: 2020.05.13 at 11:00:13 AM CEST
   -->
   <bindings scd="x-schema::tns" xmlns:tns="http://classes.khryniewicki.com.pl">
     <schemaBindings map="false">
-      <package name="pl.com.khryniewicki.request"/>
+      <package name="pl.com.khryniewicki.dto.request"/>
     </schemaBindings>
     <bindings scd="tns:getCountryRequest">
-      <class ref="pl.com.khryniewicki.request.GetCountryRequest"/>
+      <class ref="pl.com.khryniewicki.dto.request.GetCountryRequest"/>
     </bindings>
     <bindings scd="tns:getCountryResponse">
-      <class ref="pl.com.khryniewicki.request.GetCountryResponse"/>
+      <class ref="pl.com.khryniewicki.dto.request.GetCountryResponse"/>
     </bindings>
     <bindings scd="~tns:country">
-      <class ref="pl.com.khryniewicki.request.Country"/>
+      <class ref="pl.com.khryniewicki.dto.request.Country"/>
     </bindings>
     <bindings scd="~tns:currency">
-      <typesafeEnumClass ref="pl.com.khryniewicki.request.Currency"/>
+      <typesafeEnumClass ref="pl.com.khryniewicki.dto.request.ExchangeRatesEntity"/>
     </bindings>
   </bindings>
 </bindings>

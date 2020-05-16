@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://response.khryniewicki.com.pl"
-           targetNamespace="http://response.khryniewicki.com.pl" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://response.dto.khryniewicki.com.pl"
+           targetNamespace="http://response.dto.khryniewicki.com.pl" elementFormDefault="qualified">
 
     <xs:element name="getCurrencyRequest">
         <xs:complexType>

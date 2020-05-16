@@ -30,23 +30,49 @@
 			<version>1.4.195</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
+		<!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-hikaricp -->
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate</groupId>-->
+<!--			<artifactId>hibernate-hikaricp</artifactId>-->
+<!--			<version>5.4.15.Final</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<version>5.2.4.Final</version>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -58,6 +84,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
 		<dependency>
 			<groupId>wsdl4j</groupId>
@@ -65,6 +92,43 @@
 			<version>1.6.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>jakarta.jws</groupId>
+			<artifactId>jakarta.jws-api</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.3.1.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>2.3.1.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>tjws</artifactId>
+			<version>2.3.1.GA</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -107,14 +171,24 @@
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generateDirectory>${project.basedir}/src/main/java</generateDirectory>
-					<generatePackage>pl.com.khryniewicki.response</generatePackage>
+					<generatePackage>pl.com.khryniewicki.dto.response</generatePackage>
 					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
 					<schemaIncludes>
 						<include>currencies.wsdl</include>
 					</schemaIncludes>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>1.2.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 

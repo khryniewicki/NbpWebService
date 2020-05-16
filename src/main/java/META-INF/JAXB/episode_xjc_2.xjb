@@ -10,22 +10,22 @@ Generated on: 2020.05.13 at 11:15:25 AM CEST
   -->
   <bindings scd="x-schema::tns" xmlns:tns="http://classes.khryniewicki.com.pl">
     <schemaBindings map="false">
-      <package name="pl.com.khryniewicki.request"/>
+      <package name="pl.com.khryniewicki.dto.request"/>
     </schemaBindings>
     <bindings scd="tns:getCurrencyRequest">
-      <class ref="pl.com.khryniewicki.request.GetCurrencyRequest"/>
+      <class ref="pl.com.khryniewicki.dto.request.GetCurrencyRequest"/>
     </bindings>
     <bindings scd="tns:getCurrencyResponse">
-      <class ref="pl.com.khryniewicki.request.GetCurrencyResponse"/>
+      <class ref="pl.com.khryniewicki.dto.request.GetCurrencyResponse"/>
     </bindings>
     <bindings scd="~tns:ExchangeRatesSeries">
-      <class ref="pl.com.khryniewicki.request.ExchangeRatesRequest"/>
+      <class ref="pl.com.khryniewicki.dto.request.ExchangeRatesRequest"/>
     </bindings>
     <bindings scd="~tns:Rate">
-      <class ref="pl.com.khryniewicki.request.RateRequest"/>
+      <class ref="pl.com.khryniewicki.dto.request.RateRequest"/>
     </bindings>
     <bindings scd="~tns:Code">
-      <typesafeEnumClass ref="pl.com.khryniewicki.response.Code"/>
+      <typesafeEnumClass ref="pl.com.khryniewicki.dto.response.Code"/>
     </bindings>
   </bindings>
 </bindings>

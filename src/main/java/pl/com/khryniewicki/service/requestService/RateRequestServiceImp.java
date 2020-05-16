@@ -49,5 +49,10 @@ public class RateRequestServiceImp implements RateRequestService {
         return rateRequestRepository.findAllByExchangeAndEffectiveDateBetween(exchangeRatesRequest, startingDate, endingDate);
     }
 
+    @Override
+    public Optional<RateRequest> findByEffectiveDate(GregorianCalendar effectiveDate) {
+        return rateRequestRepository.findByEffectiveDate(effectiveDate);
+    }
 
+    ;
 }

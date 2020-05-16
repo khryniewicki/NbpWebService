@@ -54,8 +54,8 @@ public class NbpServiceImp implements NbpService {
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        } catch (NullPointerException ignored) {
         }
+
         return fulltext;
     }
 

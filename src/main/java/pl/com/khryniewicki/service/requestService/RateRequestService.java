@@ -16,4 +16,6 @@ public interface RateRequestService {
     List<RateRequest> findByExchangeRatesAndDates(RequestHolder requestHolder);
 
     Optional<RateRequest> getRateRequestByExchangeAndDate(ExchangeRatesRequest exchange, GregorianCalendar startingDate);
+
+    Optional<RateRequest> findByEffectiveDate(GregorianCalendar effectiveDate);
 }

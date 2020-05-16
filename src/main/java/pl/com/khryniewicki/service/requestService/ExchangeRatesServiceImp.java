@@ -19,6 +19,7 @@ public class ExchangeRatesServiceImp implements ExchangeRatesService {
 
     @Override
     public ExchangeRatesRequest findByCurrency(String currency) {
+
         return exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(currency);
     }
 

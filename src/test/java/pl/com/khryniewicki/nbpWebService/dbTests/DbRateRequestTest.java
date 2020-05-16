@@ -79,5 +79,18 @@ public class DbRateRequestTest {
         Assertions.assertEquals(4.32f, rateRequest.getAsk());
     }
 
+    @Test
+    public void testFindRateRequestByEffectiveDate() {
+
+        Mockito.when(rateRequestRepository.findByEffectiveDate(startDate))
+                .thenReturn(java.util.Optional.of(rateRequest));
+
+        Optional<RateRequest> found = rateRequestService.findByEffectiveDate(startDate);
+
+        Assertions.assertNotNull(rateRequest);
+        Assertions.assertEquals(rateRequest, found.get());
+        Assertions.assertEquals(4.21f, rateRequest.getBid());
+        Assertions.assertEquals(4.32f, rateRequest.getAsk());
+    }
 
 }

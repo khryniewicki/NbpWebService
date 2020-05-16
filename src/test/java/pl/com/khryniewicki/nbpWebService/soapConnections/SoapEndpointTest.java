@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.ExpectedException;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.ws.soap.client.SoapFaultClientException;
 import pl.com.khryniewicki.config.SoapConnector;
 import pl.com.khryniewicki.dto.response.*;
 
@@ -35,6 +34,7 @@ public class SoapEndpointTest {
     public void after() throws IOException {
         soapConnector.disconnect();
     }
+
     @Test
     public void testValidRequestWithDolar() {
 
@@ -83,19 +83,19 @@ public class SoapEndpointTest {
     public ExpectedException expectedEx = ExpectedException.none();
 
     @Test
-    public void testInvalidRequestWithRubel() throws Exception{
+    public void testInvalidRequestWithRubel() throws Exception {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("rubel rosyjski");
         request.setStartingDate("2020-03-12");
         request.setEndingDate("2020-05-11");
-        SoapFaultClientException thrown = Assertions.assertThrows(
-                SoapFaultClientException.class,
+        Exception thrown = Assertions.assertThrows(
+                Exception.class,
                 () -> soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request),
-                "Api does not provide information about this currency"
+                "java.lang.NullPointerException"
         );
-
-        Assertions.assertTrue(thrown.getMessage().contains("Api does not provide information about this currency"));
+        System.out.println(thrown.getMessage());
+        Assertions.assertTrue(thrown.getMessage().contains("java.lang.NullPointerException"));
 
     }
 
@@ -110,7 +110,6 @@ public class SoapEndpointTest {
         GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
-
 
         Assertions.assertEquals("Invalid date", message);
         Assertions.assertNull(exchange);

@@ -9,6 +9,7 @@ import pl.com.khryniewicki.service.requestService.ExchangeRatesServiceImp;
 import pl.com.khryniewicki.service.requestService.RateRequestServiceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +22,16 @@ public class DBservice {
         List<RateRequest> rateRequests = unmarshal.getRateRequests();
 
         exchangeRatesService.create(unmarshal);
+
         ExchangeRatesRequest byCurrency = exchangeRatesService.findByCurrency(unmarshal.getCurrency());
-        rateRequests.forEach(rate -> rate.setExchange(byCurrency));
-        rateRequests.forEach(rateRequestService::create);
+        for (RateRequest rate : rateRequests) {
+            rate.setExchange(byCurrency);
+            Optional<RateRequest> optionalRateRequest = rateRequestService.findByEffectiveDate(rate.getEffectiveDate());
+            if (!optionalRateRequest.isPresent()) {
+                rateRequestService.create(rate);
+            }
+        }
+
     }
 
 

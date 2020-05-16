@@ -20,7 +20,7 @@ public class ResponseMarshaller {
     public ExchangeRatesSeries getExchangeRatesSeriesFromApi(String currencyFullName, String startingDate, String endingDate) {
         Optional<ExchangeRatesSeries> optional = prepareExchangeRatesSeries(currencyFullName, startingDate, endingDate);
         if (optional.isPresent()) return optional.get();
-        else throw new NullPointerException("Api does not provide information about this currency") ;
+        else throw new NullPointerException("Api does not provide information about this currency");
     }
 
     public ExchangeRatesSeries getExchangeRatesSeriesFromDB(RequestHolder requestHolder) {

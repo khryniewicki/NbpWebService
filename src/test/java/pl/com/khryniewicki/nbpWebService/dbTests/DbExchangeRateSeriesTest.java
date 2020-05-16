@@ -45,7 +45,7 @@ public class DbExchangeRateSeriesTest {
         exchange.setCurrency(name);
         exchange.setCode(code);
         Mockito.when(exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(exchange.getCurrency()))
-                .thenReturn(exchange);
+                .thenReturn((exchange));
 
         ExchangeRatesRequest found = exchangeRatesService.findByCurrency(name);
 
@@ -63,7 +63,7 @@ public class DbExchangeRateSeriesTest {
         exchange.setCurrency(name);
         exchange.setCode(code);
         Mockito.when(exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(exchange.getCurrency()))
-                .thenReturn(exchange);
+                .thenReturn((exchange));
 
         ExchangeRatesRequest found = exchangeRatesService.findByCurrency(name);
 

@@ -15,4 +15,6 @@ public interface RateRequestRepository extends JpaRepository<RateRequest, Long> 
     List<RateRequest> findAllByExchangeAndEffectiveDateBetween(ExchangeRatesRequest exchangeRatesRequest, GregorianCalendar statingDate, GregorianCalendar endingDate);
 
     Optional<RateRequest> findRateRequestByExchangeAndEffectiveDate(ExchangeRatesRequest exchangeRatesRequest, GregorianCalendar date);
+
+    Optional<RateRequest>    findByEffectiveDate(GregorianCalendar effectiveDate);
 }

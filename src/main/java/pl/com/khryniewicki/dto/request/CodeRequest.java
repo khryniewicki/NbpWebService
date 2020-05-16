@@ -35,7 +35,7 @@ public enum CodeRequest {
     RUB("rubel rosyjski"),
     EUR("euro");
 
-    private String currencyFullName;
+    private final String currencyFullName;
 
 
     CodeRequest(String currencyFullName) {

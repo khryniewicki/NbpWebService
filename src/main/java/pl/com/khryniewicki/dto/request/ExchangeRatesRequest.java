@@ -9,13 +9,10 @@
 package pl.com.khryniewicki.dto.request;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.com.khryniewicki.dto.response.Code;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,7 +58,7 @@ public class ExchangeRatesRequest {
     @XmlElement(name = "Code", required = true)
     protected Code code;
     @XmlElementWrapper(name = "Rates")
-    @XmlElement(name = "Rate",required = true)
+    @XmlElement(name = "Rate", required = true)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exchange")
     protected List<RateRequest> rateRequests;
 
@@ -153,7 +150,7 @@ public class ExchangeRatesRequest {
     @Override
     public String toString() {
         return "ExchangeRatesSeries{" +
-                "table='" + tableName+ '\'' +
+                "table='" + tableName + '\'' +
                 ", currency='" + currency + '\'' +
                 ", code='" + code + '\'' +
                 '}';

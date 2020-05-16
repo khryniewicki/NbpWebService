@@ -8,18 +8,14 @@
 
 package pl.com.khryniewicki.dto.response;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
@@ -33,14 +29,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "currency",
-    "startingDate",
-    "endingDate"
+        "currency",
+        "startingDate",
+        "endingDate"
 })
 @XmlRootElement(name = "getCurrencyRequest")
 public class GetCurrencyRequest {
@@ -54,11 +48,9 @@ public class GetCurrencyRequest {
 
     /**
      * Gets the value of the currency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCurrency() {
         return currency;
@@ -66,11 +58,9 @@ public class GetCurrencyRequest {
 
     /**
      * Sets the value of the currency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCurrency(String value) {
         this.currency = value;
@@ -78,11 +68,9 @@ public class GetCurrencyRequest {
 
     /**
      * Gets the value of the startingDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getStartingDate() {
         return startingDate;
@@ -90,11 +78,9 @@ public class GetCurrencyRequest {
 
     /**
      * Sets the value of the startingDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setStartingDate(String value) {
         this.startingDate = value;
@@ -102,11 +88,9 @@ public class GetCurrencyRequest {
 
     /**
      * Gets the value of the endingDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEndingDate() {
         return endingDate;
@@ -114,11 +98,9 @@ public class GetCurrencyRequest {
 
     /**
      * Sets the value of the endingDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEndingDate(String value) {
         this.endingDate = value;

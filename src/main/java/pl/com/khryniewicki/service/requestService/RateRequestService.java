@@ -2,10 +2,10 @@ package pl.com.khryniewicki.service.requestService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.com.khryniewicki.dto.repository.RateRequestRepository;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
-import pl.com.khryniewicki.dto.repository.RateRequestRepository;
 
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,7 +30,7 @@ public class RateRequestService {
         Optional<RateRequest> RateRequestInStartingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, startingDate);
         Optional<RateRequest> RateRequestInEndingDay = rateRequestRepository.findRateRequestByExchangeAndEffectiveDate(exchange, endingDate);
 
-        return  (RateRequestInStartingDay.isPresent() && RateRequestInEndingDay.isPresent()) ? true:false;
+        return RateRequestInStartingDay.isPresent() && RateRequestInEndingDay.isPresent();
     }
 
 
@@ -41,7 +41,6 @@ public class RateRequestService {
 
         return rateRequestRepository.findAllByExchangeAndEffectiveDateBetween(exchangeRatesRequest, startingDate, endingDate);
     }
-
 
 
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 
 @Repository
-public interface ExchangeRatesRequestRepository extends JpaRepository<ExchangeRatesRequest,Long> {
+public interface ExchangeRatesRequestRepository extends JpaRepository<ExchangeRatesRequest, Long> {
     ExchangeRatesRequest findExchangeRatesRequestByCurrency(String currency);
 }

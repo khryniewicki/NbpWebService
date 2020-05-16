@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Rates complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="Rates"&gt;
  *   &lt;complexContent&gt;
@@ -31,13 +31,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Rates", propOrder = {
-    "highestBidRate",
-    "lowestAskRate"
+        "highestBidRate",
+        "lowestAskRate"
 })
 public class Rates {
 
@@ -48,11 +46,9 @@ public class Rates {
 
     /**
      * Gets the value of the highestBidRate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link HighestBidRate }
-     *     
+     *
+     * @return possible object is
+     * {@link HighestBidRate }
      */
     public HighestBidRate getHighestBidRate() {
         return highestBidRate;
@@ -60,11 +56,9 @@ public class Rates {
 
     /**
      * Sets the value of the highestBidRate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link HighestBidRate }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link HighestBidRate }
      */
     public void setHighestBidRate(HighestBidRate value) {
         this.highestBidRate = value;
@@ -72,11 +66,9 @@ public class Rates {
 
     /**
      * Gets the value of the lowestAskRate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link LowestAskRate }
-     *     
+     *
+     * @return possible object is
+     * {@link LowestAskRate }
      */
     public LowestAskRate getLowestAskRate() {
         return lowestAskRate;
@@ -84,11 +76,9 @@ public class Rates {
 
     /**
      * Sets the value of the lowestAskRate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link LowestAskRate }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link LowestAskRate }
      */
     public void setLowestAskRate(LowestAskRate value) {
         this.lowestAskRate = value;

@@ -16,6 +16,9 @@ import java.io.IOException;
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
 public class SoapEndpointTest {
+
+    //In order to run tests, type "mvn spring-boot:run" in terminal;
+
     public static final String HTTP_LOCALHOST_8080_WS = "http://localhost:8080/ws";
     public static SoapConnector soapConnector;
 
@@ -31,7 +34,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void testValidRequestWithEuro()  {
+    public void testValidRequestWithEuro() {
         GetCurrencyRequest request = new GetCurrencyRequest();
 
         request.setCurrency("euro");
@@ -39,7 +42,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
 
         ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
         HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
@@ -61,7 +64,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-03-05");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
         HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
         LowestAskRate lowestAskRate = testedExchangeRate.getRates().getLowestAskRate();
@@ -82,13 +85,13 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Api does not provide information about this currency", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
 
     }
 
@@ -100,13 +103,13 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Invalid date", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
 
     }
 
@@ -119,13 +122,13 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-25-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Invalid date", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
 
     }
 
@@ -138,15 +141,16 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-04-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Invalid currency name", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
 
     }
+
     @Test
     public void testRequestWithUnchronogicalDates() {
 
@@ -156,31 +160,33 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-03-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Invalid date", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
 
     }
+
     @Test
-    public void testRequestWithStartingDate() {
+    public void testRequestWithInvalidStartingDate() {
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
         request.setStartingDate(null);
         request.setEndingDate("2020-02-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Date not found", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
     }
+
     @Test
     public void testRequestWithEmptyEndingDate() {
         GetCurrencyRequest request = new GetCurrencyRequest();
@@ -189,13 +195,13 @@ public class SoapEndpointTest {
         request.setEndingDate(null);
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("Date not found", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
     }
 
     @Test
@@ -206,14 +212,69 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-02-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
 
         Assertions.assertEquals("No currency name found", message);
-        Assertions.assertEquals(null, exchange);
+        Assertions.assertNull(exchange);
     }
 
+    @Test
+    public void testRequestWithObsolateDates() {
+        GetCurrencyRequest request = new GetCurrencyRequest();
 
+        request.setCurrency("euro");
+        request.setStartingDate("2001-01-03");
+        request.setEndingDate("2001-02-03");
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
+
+        String message = get.getMessage();
+        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
+
+        Assertions.assertEquals("Invalid date", message);
+        Assertions.assertNull(exchange);
+
+    }
+
+    @Test
+    public void testRequestWithFutureDates() {
+        GetCurrencyRequest request = new GetCurrencyRequest();
+
+        request.setCurrency("euro");
+        request.setStartingDate("2020-03-12");
+        request.setEndingDate("2020-08-11");
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
+
+        String message = get.getMessage();
+        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
+
+        Assertions.assertEquals("Invalid date", message);
+        Assertions.assertNull(exchange);
+
+    }
+
+    @Test
+    public void testRequestWithInvalidDatesRange() {
+        GetCurrencyRequest request = new GetCurrencyRequest();
+
+        request.setCurrency("euro");
+        request.setStartingDate("2018-05-12");
+        request.setEndingDate("2020-03-11");
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
+
+        String message = get.getMessage();
+        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
+
+        Assertions.assertEquals("Invalid dates range", message);
+        Assertions.assertNull(exchange);
+
+    }
 }

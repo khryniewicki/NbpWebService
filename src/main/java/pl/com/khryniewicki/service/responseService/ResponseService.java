@@ -20,7 +20,7 @@ public class ResponseService {
 
     public ExchangeRatesSeries getExchangeRates(GetCurrencyRequest request) {
         RequestHolder requestHolder = RequestUtil.parseRequest(request);
-        return isResponseAlreadyStored(requestHolder)? getExchangeRatesFromDB(requestHolder):getExchangeRatesFromApi(request);
+        return isResponseAlreadyStored(requestHolder) ? getExchangeRatesFromDB(requestHolder) : getExchangeRatesFromApi(request);
     }
 
     public boolean isResponseAlreadyStored(RequestHolder requestHolder) {

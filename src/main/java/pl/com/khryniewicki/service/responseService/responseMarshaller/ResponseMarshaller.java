@@ -8,8 +8,6 @@ import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
 import pl.com.khryniewicki.service.responseService.dbService.DBservice;
 import pl.com.khryniewicki.service.responseService.nbpservice.NbpService;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ResponseMarshaller {

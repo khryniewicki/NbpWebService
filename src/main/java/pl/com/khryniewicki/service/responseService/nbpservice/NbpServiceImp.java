@@ -20,8 +20,7 @@ import java.net.URL;
 public class NbpServiceImp implements NbpService {
 
 
-
-@Override
+    @Override
     public ExchangeRatesRequest unmarshallStringFromApi(String fulltext) {
         JAXBContext jaxbContext;
         ExchangeRatesRequest unmarshal = new ExchangeRatesRequest();
@@ -42,8 +41,6 @@ public class NbpServiceImp implements NbpService {
     }
 
 
-
-
     @Override
     public String parseXmlFromNBPApiToString(String currencyFullName, String startingDate, String endingDate) {
         CodeRequest code = getCurrencyCodeUsingCurrencyName(currencyFullName);
@@ -57,8 +54,7 @@ public class NbpServiceImp implements NbpService {
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        } catch (NullPointerException e) {
-            String message="Null Pointer";
+        } catch (NullPointerException ignored) {
         }
         return fulltext;
     }

@@ -1,1 +1,0 @@
-Insert Into exchange_rates_request (id,code,currency) values (1,'EUR','euro');

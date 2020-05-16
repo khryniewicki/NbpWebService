@@ -7,6 +7,7 @@ import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 import pl.com.khryniewicki.dto.response.GetCurrencyResponse;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -30,6 +31,9 @@ public class ValidateRequest {
         } else if (!isDateValid(request)) {
             message = ("Invalid date");
             isInvalid = true;
+        } else if (!isDatesRangeCorrect(request)) {
+            message = ("Invalid dates range");
+            isInvalid = true;
         } else if (!isCurrencyNameValid(request)) {
             message = ("Invalid currency name");
             isInvalid = true;
@@ -38,6 +42,18 @@ public class ValidateRequest {
         if (isInvalid) response.setMessage(message);
 
         return isInvalid;
+    }
+
+    private boolean isDatesRangeCorrect(GetCurrencyRequest request) {
+        String startingDate = request.getStartingDate();
+        String endingDate = request.getEndingDate();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(startingDate, formatter);
+        LocalDate end = LocalDate.parse(endingDate, formatter);
+
+        Duration diff = Duration.between(start.atStartOfDay(), end.atStartOfDay());
+        return diff.toDays() < 367;
     }
 
     private boolean isCurrencyNameValid(GetCurrencyRequest request) {
@@ -51,29 +67,38 @@ public class ValidateRequest {
         String startingDate = request.getStartingDate();
         String endingDate = request.getEndingDate();
 
-        isDateValid = (isRequestDateValid(startingDate) && isRequestDateValid(endingDate)) ? true : false;
+        isDateValid = isRequestDateValid(startingDate) && isRequestDateValid(endingDate);
         if (!isDateValid) return false;
 
-        isDateValid = isStartingDateBeforeEndingDate(startingDate, endingDate);
+        isDateValid = isDateBefore(startingDate, endingDate);
         return isDateValid;
 
     }
 
-    private boolean isStartingDateBeforeEndingDate(String startingDate, String endingDate) {
-        boolean isDateValid;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd" );
-        LocalDate start = LocalDate.parse( startingDate , formatter );
-        LocalDate end = LocalDate.parse( endingDate , formatter );
-        isDateValid=start.isBefore( end );
-        return isDateValid;
+    private boolean isDateBefore(String startingDate, String endingDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(startingDate, formatter);
+        LocalDate end = LocalDate.parse(endingDate, formatter);
+        LocalDate obsolateDate = LocalDate.of(2001, 1, 31);
+
+        if (start.isAfter(end)) {
+            return false;
+        } else if (start.isAfter(LocalDate.now())) {
+            return false;
+        } else if (end.isAfter(LocalDate.now())) {
+            return false;
+        } else if (start.isBefore(obsolateDate)) {
+            return false;
+        } else {
+            return !end.isBefore(obsolateDate);
+        }
     }
 
     private boolean isRequestDateValid(String date) {
         String regex = "^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(date);
-        boolean valid = matcher.matches();
 
-        return valid;
+        return matcher.matches();
     }
 }

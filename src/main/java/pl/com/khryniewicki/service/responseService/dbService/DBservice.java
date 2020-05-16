@@ -21,8 +21,8 @@ public class DBservice {
         List<RateRequest> rateRequests = unmarshal.getRateRequests();
         exchangeRatesService.create(unmarshal);
         ExchangeRatesRequest byCurrency = exchangeRatesService.findByCurrency(unmarshal.getCurrency());
-        rateRequests.forEach(rate->rate.setExchange(byCurrency));
-        rateRequests.forEach(rate-> rateRequestService.create(rate));
+        rateRequests.forEach(rate -> rate.setExchange(byCurrency));
+        rateRequests.forEach(rateRequestService::create);
     }
 
 

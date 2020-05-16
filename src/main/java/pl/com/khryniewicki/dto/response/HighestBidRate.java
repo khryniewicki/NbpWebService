@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for HighestBidRate complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="HighestBidRate"&gt;
  *   &lt;complexContent&gt;
@@ -32,14 +32,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HighestBidRate", propOrder = {
-    "no",
-    "effectiveDate",
-    "bid"
+        "no",
+        "effectiveDate",
+        "bid"
 })
 public class HighestBidRate {
 
@@ -52,11 +50,9 @@ public class HighestBidRate {
 
     /**
      * Gets the value of the no property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getNo() {
         return no;
@@ -64,11 +60,9 @@ public class HighestBidRate {
 
     /**
      * Sets the value of the no property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setNo(String value) {
         this.no = value;
@@ -76,11 +70,9 @@ public class HighestBidRate {
 
     /**
      * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEffectiveDate() {
         return effectiveDate;
@@ -88,11 +80,9 @@ public class HighestBidRate {
 
     /**
      * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEffectiveDate(String value) {
         this.effectiveDate = value;
@@ -100,7 +90,6 @@ public class HighestBidRate {
 
     /**
      * Gets the value of the bid property.
-     * 
      */
     public float getBid() {
         return bid;
@@ -108,7 +97,6 @@ public class HighestBidRate {
 
     /**
      * Sets the value of the bid property.
-     * 
      */
     public void setBid(float value) {
         this.bid = value;

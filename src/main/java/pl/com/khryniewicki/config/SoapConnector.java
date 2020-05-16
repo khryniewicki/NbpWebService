@@ -1,7 +1,5 @@
 package pl.com.khryniewicki.config;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.transport.WebServiceConnection;
@@ -14,8 +12,7 @@ import java.net.URI;
 public class SoapConnector extends WebServiceTemplate {
     private WebServiceConnection connection;
 
-
-    public WebServiceConnection connect() throws IOException {
+    public void connect() throws IOException {
 
         WebServiceConfig webServiceConfig = new WebServiceConfig();
         setMarshaller(webServiceConfig.marshaller());
@@ -23,16 +20,14 @@ public class SoapConnector extends WebServiceTemplate {
         URI uri = URI.create("http://localhost:8080/ws");
         connection = createConnection(uri);
 
-        return connection;
     }
 
 
-    public Object send(String url, Object request) {
+    public Object sendAndReceive(String url, Object request) {
         return marshalSendAndReceive(url, request);
     }
 
-    public void disconnect() throws IOException {
+    public void disconnect() {
         TransportUtils.closeConnection(connection);
-
     }
 }

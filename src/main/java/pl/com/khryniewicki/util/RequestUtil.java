@@ -1,6 +1,5 @@
 package pl.com.khryniewicki.util;
 
-import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
 import pl.com.khryniewicki.dto.response.GetCurrencyRequest;
 
@@ -25,7 +24,7 @@ public class RequestUtil {
         GregorianCalendar st = GregorianCalendar.from(start.atStartOfDay(ZoneId.systemDefault()));
         GregorianCalendar en = GregorianCalendar.from(end.atStartOfDay(ZoneId.systemDefault()));
 
-        GregorianCalendar[] calendar=new GregorianCalendar[] {st,en};
+        GregorianCalendar[] calendar = new GregorianCalendar[]{st, en};
         return calendar;
     }
 }

@@ -8,18 +8,14 @@
 
 package pl.com.khryniewicki.dto.response;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Java class for ExchangeRatesSeries complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="ExchangeRatesSeries"&gt;
  *   &lt;complexContent&gt;
@@ -34,15 +30,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ExchangeRatesSeries", propOrder = {
-    "table",
-    "currency",
-    "code",
-    "rates"
+        "table",
+        "currency",
+        "code",
+        "rates"
 })
 public class ExchangeRatesSeries {
 
@@ -58,11 +52,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Gets the value of the table property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTable() {
         return table;
@@ -70,11 +62,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Sets the value of the table property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTable(String value) {
         this.table = value;
@@ -82,11 +72,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Gets the value of the currency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getCurrency() {
         return currency;
@@ -94,11 +82,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Sets the value of the currency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setCurrency(String value) {
         this.currency = value;
@@ -106,11 +92,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Gets the value of the code property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Code }
-     *     
+     *
+     * @return possible object is
+     * {@link Code }
      */
     public Code getCode() {
         return code;
@@ -118,11 +102,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Sets the value of the code property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Code }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Code }
      */
     public void setCode(Code value) {
         this.code = value;
@@ -130,11 +112,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Gets the value of the rates property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Rates }
-     *     
+     *
+     * @return possible object is
+     * {@link Rates }
      */
     public Rates getRates() {
         return rates;
@@ -142,11 +122,9 @@ public class ExchangeRatesSeries {
 
     /**
      * Sets the value of the rates property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Rates }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Rates }
      */
     public void setRates(Rates value) {
         this.rates = value;

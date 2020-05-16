@@ -31,18 +31,17 @@ public class DbTests {
     }
 
     @MockBean
-    private  ExchangeRatesRequestRepository exchangeRatesRequestRepository;
+    private ExchangeRatesRequestRepository exchangeRatesRequestRepository;
 
     @Autowired
-    private  ExchangeRatesService exchangeRatesService;
-
+    private ExchangeRatesService exchangeRatesService;
 
 
     @Test
     public void testExchangeRatesWithCurrencyDolar() {
         ExchangeRatesRequest exchange = new ExchangeRatesRequest();
-        String name="dolar amerykański";
-        Code code=Code.USD;
+        String name = "dolar amerykański";
+        Code code = Code.USD;
         exchange.setCurrency(name);
         exchange.setCode(code);
         Mockito.when(exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(exchange.getCurrency()))
@@ -51,16 +50,16 @@ public class DbTests {
         ExchangeRatesRequest found = exchangeRatesService.findByCurrency(name);
 
         Assertions.assertNotNull(found);
-        Assertions.assertEquals(exchange,found);
-        Assertions.assertEquals(name,exchange.getCurrency());
-        Assertions.assertEquals(code,exchange.getCode());
+        Assertions.assertEquals(exchange, found);
+        Assertions.assertEquals(name, exchange.getCurrency());
+        Assertions.assertEquals(code, exchange.getCode());
     }
 
     @Test
     public void testExchangeRatesWithCurrencyEuro() {
         ExchangeRatesRequest exchange = new ExchangeRatesRequest();
-        String name="euro";
-        Code code=Code.EUR;
+        String name = "euro";
+        Code code = Code.EUR;
         exchange.setCurrency(name);
         exchange.setCode(code);
         Mockito.when(exchangeRatesRequestRepository.findExchangeRatesRequestByCurrency(exchange.getCurrency()))
@@ -69,19 +68,10 @@ public class DbTests {
         ExchangeRatesRequest found = exchangeRatesService.findByCurrency(name);
 
         Assertions.assertNotNull(found);
-        Assertions.assertEquals(exchange,found);
-        Assertions.assertEquals(name,exchange.getCurrency());
-        Assertions.assertEquals(code,exchange.getCode());
+        Assertions.assertEquals(exchange, found);
+        Assertions.assertEquals(name, exchange.getCurrency());
+        Assertions.assertEquals(code, exchange.getCode());
     }
 
 
-
-//    @Test
-//    @Sql("createExchangeRates.sql")
-//    public void test1() {
-//        String currencyName="dolar amerykański";
-//        ExchangeRatesRequest Currency = exchangeRatesService.findByCurrency("euro");
-//        Assertions.assertNotNull(Currency);
-//
-//    }
 }

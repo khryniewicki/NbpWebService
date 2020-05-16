@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for LowestAskRate complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="LowestAskRate"&gt;
  *   &lt;complexContent&gt;
@@ -32,14 +32,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LowestAskRate", propOrder = {
-    "no",
-    "effectiveDate",
-    "ask"
+        "no",
+        "effectiveDate",
+        "ask"
 })
 public class LowestAskRate {
 
@@ -52,11 +50,9 @@ public class LowestAskRate {
 
     /**
      * Gets the value of the no property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getNo() {
         return no;
@@ -64,11 +60,9 @@ public class LowestAskRate {
 
     /**
      * Sets the value of the no property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setNo(String value) {
         this.no = value;
@@ -76,11 +70,9 @@ public class LowestAskRate {
 
     /**
      * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEffectiveDate() {
         return effectiveDate;
@@ -88,11 +80,9 @@ public class LowestAskRate {
 
     /**
      * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEffectiveDate(String value) {
         this.effectiveDate = value;
@@ -100,7 +90,6 @@ public class LowestAskRate {
 
     /**
      * Gets the value of the ask property.
-     * 
      */
     public float getAsk() {
         return ask;
@@ -108,7 +97,6 @@ public class LowestAskRate {
 
     /**
      * Sets the value of the ask property.
-     * 
      */
     public void setAsk(float value) {
         this.ask = value;

@@ -11,7 +11,6 @@ package pl.com.khryniewicki.dto.request;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
-
 import java.util.GregorianCalendar;
 
 
@@ -46,7 +45,7 @@ import java.util.GregorianCalendar;
 })
 @XmlRootElement(name = "Rate")
 @Entity
-public class RateRequest  {
+public class RateRequest {
     @Id
     @GeneratedValue()
     @XmlElement(name = "id", required = true)

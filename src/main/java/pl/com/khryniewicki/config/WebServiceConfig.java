@@ -14,7 +14,6 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
-import pl.com.khryniewicki.config.SOAPConnector;
 
 @EnableWs
 @Configuration
@@ -53,13 +52,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return marshaller;
     }
 
-    @Bean
-    public SOAPConnector soapConnector(Jaxb2Marshaller marshaller) {
-        SOAPConnector client = new SOAPConnector();
-        client.setDefaultUri("http://localhost:8080/ws");
-        client.setMarshaller(marshaller);
-        client.setUnmarshaller(marshaller);
-        return client;
-    }
 
 }

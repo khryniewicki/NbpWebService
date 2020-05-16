@@ -1,30 +1,37 @@
-package com.khryniewicki.nbpWebService.soap;
+package pl.com.khryniewicki.nbpWebService.soapConnections;
 
 
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.com.khryniewicki.config.SOAPConnector;
+import pl.com.khryniewicki.config.SoapConnector;
 import pl.com.khryniewicki.dto.response.*;
-import pl.com.khryniewicki.config.WebServiceConfig;
+
+import java.io.IOException;
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
 public class SoapEndpointTest {
     public static final String HTTP_LOCALHOST_8080_WS = "http://localhost:8080/ws";
-    public static SOAPConnector soapConnector;
+    public static SoapConnector soapConnector;
 
     @BeforeEach
-    public void init() {
-        WebServiceConfig webServiceConfig = new WebServiceConfig();
-        soapConnector = webServiceConfig.soapConnector(webServiceConfig.marshaller());
+    public void before() throws IOException {
+        soapConnector = new SoapConnector();
+        soapConnector.connect();
+    }
+
+    @AfterEach
+    public void after() throws IOException {
+        soapConnector.disconnect();
     }
 
     @Test
-    public void test1() {
+    public void testValidRequestWithEuro()  {
         GetCurrencyRequest request = new GetCurrencyRequest();
 
         request.setCurrency("euro");
@@ -32,7 +39,8 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+
         ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
         HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
         LowestAskRate lowestAskRate = testedExchangeRate.getRates().getLowestAskRate();
@@ -45,7 +53,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test2() {
+    public void testValidRequestWithDolar() {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("dolar amerykański");
@@ -53,7 +61,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-03-05");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
         HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
         LowestAskRate lowestAskRate = testedExchangeRate.getRates().getLowestAskRate();
@@ -66,7 +74,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test3() {
+    public void testInvalidRequestWithRubel() {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("rubel rosyjski");
@@ -74,7 +82,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -85,14 +93,14 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test4() {
+    public void testRequestWithInvalidDateFormat() {
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
-        request.setStartingDate("2020-14-12");
+        request.setStartingDate("2020.14-12");
         request.setEndingDate("2020-05-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -103,7 +111,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test5() {
+    public void testRequestWithInvalidMonth() {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
@@ -111,7 +119,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-25-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -122,7 +130,7 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test6() {
+    public void testRequestWithInvalidCurrencyName() {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("europa");
@@ -130,7 +138,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-04-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService(HTTP_LOCALHOST_8080_WS, request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -140,7 +148,7 @@ public class SoapEndpointTest {
 
     }
     @Test
-    public void test7() {
+    public void testRequestWithUnchronogicalDates() {
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
@@ -148,7 +156,7 @@ public class SoapEndpointTest {
         request.setEndingDate("2020-03-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -158,14 +166,30 @@ public class SoapEndpointTest {
 
     }
     @Test
-    public void test8() {
+    public void testRequestWithStartingDate() {
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("euro");
         request.setStartingDate(null);
         request.setEndingDate("2020-02-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
+        String message = get.getMessage();
+        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
+
+
+        Assertions.assertEquals("Date not found", message);
+        Assertions.assertEquals(null, exchange);
+    }
+    @Test
+    public void testRequestWithEmptyEndingDate() {
+        GetCurrencyRequest request = new GetCurrencyRequest();
+        request.setCurrency("euro");
+        request.setStartingDate("2020-02-11");
+        request.setEndingDate(null);
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -175,14 +199,14 @@ public class SoapEndpointTest {
     }
 
     @Test
-    public void test9() {
+    public void testRequestWithEmptyCurrencyName() {
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency(null);
         request.setStartingDate("2020-03-11");
         request.setEndingDate("2020-02-11");
 
 
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.callWebService("http://localhost:8080/ws", request);
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.send(HTTP_LOCALHOST_8080_WS, request);
         String message = get.getMessage();
         ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
 
@@ -190,4 +214,6 @@ public class SoapEndpointTest {
         Assertions.assertEquals("No currency name found", message);
         Assertions.assertEquals(null, exchange);
     }
+
+
 }

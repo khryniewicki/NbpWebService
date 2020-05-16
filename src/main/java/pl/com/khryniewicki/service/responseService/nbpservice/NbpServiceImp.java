@@ -4,10 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.CodeRequest;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
-import pl.com.khryniewicki.dto.request.RateRequest;
-import pl.com.khryniewicki.service.requestService.ExchangeRatesService;
-import pl.com.khryniewicki.service.requestService.RateRequestService;
-import pl.com.khryniewicki.service.responseService.dbService.DBservice;
 import pl.com.khryniewicki.util.CurrencyUtil;
 
 import javax.xml.bind.JAXBContext;
@@ -18,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

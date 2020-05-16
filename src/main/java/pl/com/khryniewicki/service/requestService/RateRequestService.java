@@ -16,7 +16,7 @@ import java.util.Optional;
 public class RateRequestService {
 
     private final RateRequestRepository rateRequestRepository;
-    private final ExchangeRatesService exchangeRatesService;
+    private final ExchangeRatesServiceImp exchangeRatesService;
 
     public void create(RateRequest rateRequest) {
         rateRequestRepository.save(rateRequest);

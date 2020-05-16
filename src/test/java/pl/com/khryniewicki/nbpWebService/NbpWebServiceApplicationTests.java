@@ -1,4 +1,4 @@
-package com.khryniewicki.nbpWebService;
+package pl.com.khryniewicki.nbpWebService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

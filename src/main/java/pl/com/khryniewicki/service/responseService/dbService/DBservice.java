@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
-import pl.com.khryniewicki.service.requestService.ExchangeRatesService;
+import pl.com.khryniewicki.service.requestService.ExchangeRatesServiceImp;
 import pl.com.khryniewicki.service.requestService.RateRequestService;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DBservice {
 
-    private final ExchangeRatesService exchangeRatesService;
+    private final ExchangeRatesServiceImp exchangeRatesService;
     private final RateRequestService rateRequestService;
 
     public void saveExchangeRates(ExchangeRatesRequest unmarshal) {

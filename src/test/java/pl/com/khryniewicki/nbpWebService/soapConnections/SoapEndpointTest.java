@@ -2,12 +2,15 @@ package pl.com.khryniewicki.nbpWebService.soapConnections;
 
 
 import lombok.RequiredArgsConstructor;
+import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.rules.ExpectedException;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ws.soap.client.SoapFaultClientException;
 import pl.com.khryniewicki.config.SoapConnector;
 import pl.com.khryniewicki.dto.response.*;
 
@@ -32,6 +35,26 @@ public class SoapEndpointTest {
     public void after() throws IOException {
         soapConnector.disconnect();
     }
+    @Test
+    public void testValidRequestWithDolar() {
+
+        GetCurrencyRequest request = new GetCurrencyRequest();
+        request.setCurrency("dolar amerykański");
+        request.setStartingDate("2020-02-01");
+        request.setEndingDate("2020-03-05");
+
+
+        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
+        ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
+        HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
+        LowestAskRate lowestAskRate = testedExchangeRate.getRates().getLowestAskRate();
+
+
+        Assertions.assertEquals("dolar amerykański", testedExchangeRate.getCurrency());
+        Assertions.assertEquals(3.9286f, highestBidRate.getBid());
+        Assertions.assertEquals(3.8913f, lowestAskRate.getAsk());
+
+    }
 
     @Test
     public void testValidRequestWithEuro() {
@@ -55,43 +78,24 @@ public class SoapEndpointTest {
 
     }
 
-    @Test
-    public void testValidRequestWithDolar() {
 
-        GetCurrencyRequest request = new GetCurrencyRequest();
-        request.setCurrency("dolar amerykański");
-        request.setStartingDate("2020-02-01");
-        request.setEndingDate("2020-03-05");
-
-
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
-        ExchangeRatesSeries testedExchangeRate = get.getExchangeRatesSeries();
-        HighestBidRate highestBidRate = testedExchangeRate.getRates().getHighestBidRate();
-        LowestAskRate lowestAskRate = testedExchangeRate.getRates().getLowestAskRate();
-
-
-        Assertions.assertEquals("dolar amerykański", testedExchangeRate.getCurrency());
-        Assertions.assertEquals(3.9286f, highestBidRate.getBid());
-        Assertions.assertEquals(3.8913f, lowestAskRate.getAsk());
-
-    }
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
 
     @Test
-    public void testInvalidRequestWithRubel() {
+    public void testInvalidRequestWithRubel() throws Exception{
 
         GetCurrencyRequest request = new GetCurrencyRequest();
         request.setCurrency("rubel rosyjski");
         request.setStartingDate("2020-03-12");
         request.setEndingDate("2020-05-11");
+        SoapFaultClientException thrown = Assertions.assertThrows(
+                SoapFaultClientException.class,
+                () -> soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request),
+                "Api does not provide information about this currency"
+        );
 
-
-        GetCurrencyResponse get = (GetCurrencyResponse) soapConnector.sendAndReceive(HTTP_LOCALHOST_8080_WS, request);
-        String message = get.getMessage();
-        ExchangeRatesSeries exchange = get.getExchangeRatesSeries();
-
-
-        Assertions.assertEquals("Api does not provide information about this currency", message);
-        Assertions.assertNull(exchange);
+        Assertions.assertTrue(thrown.getMessage().contains("Api does not provide information about this currency"));
 
     }
 

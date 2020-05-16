@@ -8,6 +8,8 @@ import pl.com.khryniewicki.dto.response.ExchangeRatesSeries;
 import pl.com.khryniewicki.service.responseService.dbService.DBservice;
 import pl.com.khryniewicki.service.responseService.nbpservice.NbpService;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ResponseMarshaller {
@@ -16,23 +18,25 @@ public class ResponseMarshaller {
     private final ExchangeRatesMarshaller exchangeRatesMarshaller;
 
     public ExchangeRatesSeries getExchangeRatesSeriesFromApi(String currencyFullName, String startingDate, String endingDate) {
-        return prepareExchangeRatesSeries(currencyFullName, startingDate, endingDate);
+        Optional<ExchangeRatesSeries> optional = prepareExchangeRatesSeries(currencyFullName, startingDate, endingDate);
+        if (optional.isPresent()) return optional.get();
+        else throw new NullPointerException("Api does not provide information about this currency") ;
     }
 
     public ExchangeRatesSeries getExchangeRatesSeriesFromDB(RequestHolder requestHolder) {
         return prepareExchangeRatesFromDB(requestHolder);
     }
 
-    private ExchangeRatesSeries prepareExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
+    private Optional<ExchangeRatesSeries> prepareExchangeRatesSeries(String currencyFullName, String startingDate, String endingDate) {
         String fullXML = nbpService.parseXmlFromNBPApiToString(currencyFullName, startingDate, endingDate);
 
         if (fullXML.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
 
         ExchangeRatesRequest exchangeRatesRequest = nbpService.unmarshallStringFromApi(fullXML);
         dBservice.saveExchangeRates(exchangeRatesRequest);
-        return exchangeRatesMarshaller.exchangeRatesMarshaller(exchangeRatesRequest);
+        return Optional.ofNullable(exchangeRatesMarshaller.exchangeRatesMarshaller(exchangeRatesRequest));
     }
 
 

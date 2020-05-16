@@ -46,15 +46,19 @@ import java.util.List;
 })
 @XmlRootElement(name = "ExchangeRatesSeries")
 @Entity
+
 public class ExchangeRatesRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @XmlElement(name = "id", required = true)
+    @XmlElement(name = "id", required = true)
+
     protected Long id;
     @XmlElement(name = "TableName", required = true)
     protected String tableName;
+    @Column(unique = true)
     @XmlElement(name = "Currency", required = true)
     protected String currency;
+    @Column(unique = true)
     @XmlElement(name = "Code", required = true)
     protected Code code;
     @XmlElementWrapper(name = "Rates")

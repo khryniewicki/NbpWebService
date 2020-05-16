@@ -12,7 +12,9 @@ public class ExchangeRatesServiceImp implements ExchangeRatesService {
 
     @Override
     public void create(ExchangeRatesRequest exchangeRatesRequest) {
-        exchangeRatesRequestRepository.save(exchangeRatesRequest);
+        String currency = exchangeRatesRequest.getCurrency();
+        if (findByCurrency(currency) == null)
+            exchangeRatesRequestRepository.save(exchangeRatesRequest);
     }
 
     @Override

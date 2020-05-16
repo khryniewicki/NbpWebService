@@ -6,7 +6,7 @@ import pl.com.khryniewicki.dto.request.ExchangeRatesRequest;
 import pl.com.khryniewicki.dto.request.RateRequest;
 import pl.com.khryniewicki.dto.request.RequestHolder;
 import pl.com.khryniewicki.service.requestService.ExchangeRatesServiceImp;
-import pl.com.khryniewicki.service.requestService.RateRequestService;
+import pl.com.khryniewicki.service.requestService.RateRequestServiceImp;
 
 import java.util.List;
 
@@ -15,10 +15,11 @@ import java.util.List;
 public class DBservice {
 
     private final ExchangeRatesServiceImp exchangeRatesService;
-    private final RateRequestService rateRequestService;
+    private final RateRequestServiceImp rateRequestService;
 
     public void saveExchangeRates(ExchangeRatesRequest unmarshal) {
         List<RateRequest> rateRequests = unmarshal.getRateRequests();
+
         exchangeRatesService.create(unmarshal);
         ExchangeRatesRequest byCurrency = exchangeRatesService.findByCurrency(unmarshal.getCurrency());
         rateRequests.forEach(rate -> rate.setExchange(byCurrency));

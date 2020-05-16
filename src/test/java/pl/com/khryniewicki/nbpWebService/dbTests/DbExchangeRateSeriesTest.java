@@ -20,7 +20,7 @@ import pl.com.khryniewicki.service.requestService.ExchangeRatesServiceImp;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @RequiredArgsConstructor
-public class DbTests {
+public class DbExchangeRateSeriesTest {
 
     @TestConfiguration
     static class EmployeeServiceImplTestContextConfiguration {

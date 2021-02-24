@@ -1,11 +1,13 @@
-### Nbp WebService
-Nbp WebService is a SOAP webservice application created using Spring and Hibernate. This app was designed to provide information about currencies USD,EUR and RUB.
+### Nbp Web Service
+Nbp Web Service is a SOAP webservice application created using Spring and Hibernate. This app was designed to provide information about currencies USD,EUR and RUB.
 
 To test querries via app click the link below :
-curl --header "content-type: text/xml" -d @request.xml http://localhost:8080/ws
+curl --header "content-type: text/xml" -d @request.xml
+\
+http://localhost:8080/ws
 
 
-Try this request example for file request.xml :
+Try this request example for file request.xml:
 ```xml
 
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
